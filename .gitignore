@@ -1,0 +1,14 @@
+.venv/
+.python/
+.uv-cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest-tmp*/
+.playwright-mcp/
+*.egg-info/
+dist/
+build/
+local/
+.impeccable/
+artifacts/

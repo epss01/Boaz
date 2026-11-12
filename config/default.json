@@ -1,0 +1,40 @@
+{
+  "device": {
+    "adb_path": "",
+    "address": "127.0.0.1:5555"
+  },
+  "calibration": {
+    "width": 1280,
+    "height": 720,
+    "collectors": [],
+    "walls": []
+  },
+  "farming": {
+    "collect": true,
+    "attack": true,
+    "min_gold": 200000,
+    "min_elixir": 150000,
+    "min_dark_elixir": 0,
+    "search_limit": 10,
+    "deployment": [
+      {
+        "x": 320,
+        "y": 540,
+        "slot": 1,
+        "count": 10,
+        "delay": 0.1
+      }
+    ]
+  },
+  "walls": {
+    "enabled": false,
+    "currency": "gold",
+    "reserve_gold": 500000,
+    "reserve_elixir": 500000,
+    "upgrade_limit": 5
+  },
+  "session": {
+    "attack_limit": 5,
+    "duration_minutes": 15.0
+  }
+}
