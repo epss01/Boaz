@@ -161,6 +161,7 @@ def calibration_panel(root, device, device_lock, get_settings, draft, changed, b
             image.set_source("")
             draft["calibration"].update(width=profile.width, height=profile.height)
             draft["live"]["profile"] = profile_name.value.strip()
+            ocr_path.set_value(draft["live"]["tesseract_path"])
             changed()
             refresh_options()
             message.set_text("Profile loaded. Freeze the current game screen before editing or testing.")
