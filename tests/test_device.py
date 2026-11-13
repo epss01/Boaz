@@ -54,7 +54,7 @@ def test_explicit_connection_and_capture(connected):
     assert device.dimensions == (1280, 720)
     assert device.capture().shape == (720, 1280, 3)
     assert all(args in (["get-state"], ["exec-out", "screencap", "-p"]) for args, _ in fake.calls)
-    assert not hasattr(device, "tap")
+    assert not hasattr(device, "shell")
     device.disconnect()
     assert not device.connected
     assert device.frame is None
@@ -118,3 +118,25 @@ def test_airtest_constructor_and_commands_are_bounded(tmp_path, monkeypatch):
         (["connect", "127.0.0.1:5555"], {"device": False, "timeout": 8}),
         (["get-state"], {"timeout": 8}),
     ]
+
+
+def test_input_bounds_and_cancellation(connected, monkeypatch):
+    import threading
+    device, fake = connected
+    calls = []
+    monkeypatch.setattr(fake, "cmd", lambda args, **kwargs: calls.append((args, kwargs)))
+    with pytest.raises(ValueError):
+        device.tap(1280, 0)
+    with pytest.raises(ValueError):
+        device.tap(1.5, 0)
+    with pytest.raises(ValueError):
+        device.swipe(0, 0, 10, 10, duration_ms=0)
+    allowed = threading.Event()
+    with pytest.raises(InterruptedError):
+        device.tap(10, 20, allowed=allowed)
+    assert calls == []
+    allowed.set()
+    device.tap(10, 20, allowed=allowed)
+    device.swipe(0, 0, 100, 200)
+    assert calls == [(["shell", "input", "tap", "10", "20"], {"timeout": 8}),
+                     (["shell", "input", "swipe", "0", "0", "100", "200", "300"], {"timeout": 8})]

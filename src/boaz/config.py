@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -39,9 +40,25 @@ class Calibration(Model):
 
 
 class DeploymentStep(Point):
+    kind: Literal["troop", "hero", "spell"] = "troop"
     slot: int = Field(default=1, ge=1, le=20)
-    count: int = Field(default=10, ge=1, le=500)
+    count: int | Literal["all"] = 10
     delay: float = Field(default=0.1, ge=0, le=30)
+
+    @model_validator(mode="after")
+    def check_count(self):
+        if isinstance(self.count, int) and not 1 <= self.count <= 500:
+            raise ValueError("Deployment count must be 1–500 or 'all'")
+        if self.kind == "hero" and self.count != 1:
+            raise ValueError("Heroes must have a deployment count of 1")
+        return self
+
+
+class LiveSettings(Model):
+    profile: str = ""
+    tesseract_path: str = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    transition_timeout: float = Field(default=30.0, ge=1, le=120)
+    battle_timeout: float = Field(default=300.0, ge=30, le=600)
 
 
 class Farming(Model):
@@ -70,6 +87,7 @@ class SessionSettings(Model):
 
 
 class Settings(Model):
+    live: LiveSettings = Field(default_factory=LiveSettings)
     device: DeviceSettings = Field(default_factory=DeviceSettings)
     calibration: Calibration = Field(default_factory=Calibration)
     farming: Farming = Field(default_factory=Farming)
@@ -105,12 +123,16 @@ def load_settings(path: Path) -> Settings:
 
 def save_settings(path: Path, settings: Settings) -> None:
     validated = Settings.model_validate(settings.model_dump())
+    atomic_json(path, validated.model_dump())
+
+
+def atomic_json(path: Path, data: dict) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = None
     try:
         with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=path.parent, delete=False) as f:
             temporary = Path(f.name)
-            json.dump(validated.model_dump(), f, indent=2, allow_nan=False)
+            json.dump(data, f, indent=2, allow_nan=False)
             f.write("\n")
             f.flush()
             os.fsync(f.fileno())

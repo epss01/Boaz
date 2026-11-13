@@ -12,6 +12,7 @@ log = logging.getLogger("boaz")
 
 
 class Runner:
+    mode = "Simulation"
     def __init__(self, step_seconds: float = 0.8):
         self.status = "idle"
         self.phase = "Home"
@@ -59,8 +60,8 @@ class Runner:
         self._finished_elapsed = 0.0
         self._gate.set()
         self.status, self.phase = "running", "Home"
-        self.reason = "Simulation running; no gameplay input"
-        self.event("SIMULATION started · resources and results are synthetic")
+        self.reason = f"{self.mode} running" + ("; no gameplay input" if self.mode == "Simulation" else "; verified device input enabled")
+        self.event(f"{self.mode.upper()} started" + (" · resources and results are synthetic" if self.mode == "Simulation" else " · resources and results are observed"))
         self._task = asyncio.create_task(self._run())
 
     def pause(self):
@@ -68,15 +69,15 @@ class Runner:
             self._paused_at = time.monotonic()
             self.status, self.reason = "paused", "Paused; resume to continue this session"
             self._gate.clear()
-            self.event("Simulation paused")
+            self.event(f"{self.mode} paused")
 
     def resume(self):
         if self.status == "paused":
             self._paused_total += time.monotonic() - self._paused_at
             self._paused_at = None
-            self.status, self.reason = "running", "Simulation running; no gameplay input"
+            self.status, self.reason = "running", f"{self.mode} running"
             self._gate.set()
-            self.event("Simulation resumed")
+            self.event(f"{self.mode} resumed")
 
     async def stop(self):
         if self.active:
@@ -137,8 +138,8 @@ class Runner:
                         self._finish("completed", "Search limit reached; no simulated base qualified")
                         return
                     for step in cfg.farming.deployment:
-                        await self._stage("Deploy", f"Simulating slot {step.slot}: {step.count} troops at ({step.x}, {step.y})")
-                        await self._wait(step.count * step.delay)
+                        await self._stage("Deploy", f"Simulating {step.kind} slot {step.slot}: {step.count} at ({step.x}, {step.y})")
+                        await self._wait((10 if step.count == "all" else step.count) * step.delay)
                     await self._stage("Battle", "Simulating battle completion")
                     await self._stage("Return", "Simulating return home")
                     self.attacks += 1

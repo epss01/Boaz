@@ -75,3 +75,12 @@ def test_default_json_matches_model():
     from pathlib import Path
     default = Path(__file__).parents[1] / "config" / "default.json"
     assert json.loads(default.read_text()) == Settings().model_dump()
+
+
+def test_old_preset_and_new_deployment_kinds():
+    old = Settings.model_validate({"farming": {"deployment": [{"slot": 1, "x": 10, "y": 10, "count": 20, "delay": 0.1}]}})
+    assert old.farming.deployment[0].kind == "troop"
+    assert old.live.profile == ""
+    for kind, count in [("hero", 2), ("troop", 0), ("spell", "everything")]:
+        with pytest.raises(ValidationError):
+            Settings.model_validate({"farming": {"deployment": [{"kind": kind, "x": 10, "y": 10, "count": count}]}})

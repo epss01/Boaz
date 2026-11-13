@@ -10,6 +10,9 @@ from nicegui import app, run, ui
 from .config import Settings, load_settings, preset_path, save_settings
 from .device import Device
 from .runner import Runner
+from .live import LiveRunner
+from .recognition import OCR, Recognizer, load_profile
+from .calibration_ui import calibration_panel
 
 
 CSS = """
@@ -54,13 +57,18 @@ def serve(local: Path):
     presets = local / "presets"
     presets.mkdir(parents=True, exist_ok=True)
     runner, device = Runner(), Device()
+    simulation = runner
+    starting_live = False
     device_lock = asyncio.Lock()
     preview_source = ""
     capture_busy = False
 
     async def update_preview():
         nonlocal preview_source, capture_busy
-        if capture_busy or device_lock.locked() or not device.connected:
+        if not device.connected:
+            preview_source = ""
+            return
+        if capture_busy or device_lock.locked():
             return
         capture_busy = True
         try:
@@ -77,7 +85,9 @@ def serve(local: Path):
             capture_busy = False
 
     app.timer(1.0, update_preview)
-    app.on_shutdown(runner.stop)
+    async def shutdown():
+        await runner.stop()
+    app.on_shutdown(shutdown)
 
     @ui.page("/")
     def page():
@@ -91,24 +101,25 @@ def serve(local: Path):
                 with ui.column().classes("gap-0"):
                     ui.label("Boaz").classes("brand")
                     ui.label("A little less grind. A little more harvest.").classes("subtitle")
-            ui.badge("Foundation · simulation only", color="white", text_color="primary").classes("px-3 py-2")
+            mode_badge = ui.badge("Simulation · no gameplay input", color="white", text_color="primary").classes("px-3 py-2")
 
         with ui.column().classes("shell gap-6"):
             with ui.row().classes("w-full items-start justify-between gap-4"):
                 with ui.column().classes("gap-2"):
                     ui.label("Your farming workspace").classes("text-3xl font-semibold").props('role="heading" aria-level="1"')
                     ui.label("Tune a preset, rehearse a session, or inspect your emulator.").classes("muted")
-                ui.button("Live farming unavailable", icon="lock").props("outline disable")
+                live_button = ui.button("Start live farming", icon="play_arrow", color="accent")
             with ui.tabs().props("align=left inline-label").classes("w-full") as tabs:
                 overview = ui.tab("Session", icon="dashboard")
                 settings_tab = ui.tab("Presets", icon="tune")
                 connection_tab = ui.tab("Emulator", icon="smartphone")
+                calibration_tab = ui.tab("Calibration", icon="crop_free")
             with ui.tab_panels(tabs, value=overview).classes("w-full"):
                 with ui.tab_panel(overview):
                     with ui.column().classes("w-full gap-6"):
                         with ui.row().classes("notice w-full items-center gap-3"):
                             ui.icon("science", size="24px")
-                            ui.label("Practice mode. Every base, troop, resource, and upgrade below is simulated. No gameplay input is sent.")
+                            mode_notice = ui.label("Practice mode. Every base, troop, resource, and upgrade below is simulated. No gameplay input is sent.")
                         with ui.element("div").classes("workspace"):
                             with ui.column().classes("panel gap-4"):
                                 with ui.row().classes("w-full items-center justify-between"):
@@ -126,9 +137,10 @@ def serve(local: Path):
                                 preview_error = ui.label().classes("error text-sm").props('role="alert"')
                             with ui.column().classes("panel gap-4"):
                                 with ui.row().classes("w-full items-center justify-between"):
-                                    ui.label("Simulated session").classes("heading").props('role="heading" aria-level="2"')
+                                    session_heading = ui.label("Simulated session").classes("heading").props('role="heading" aria-level="2"')
                                     status_label = ui.badge("Idle", color="secondary")
                                 phase_label = ui.label("Home").classes("text-2xl font-medium")
+                                recognition_label = ui.label().classes("muted text-sm")
                                 reason_label = ui.label(runner.reason).classes("muted").props('role="status" aria-live="polite"')
                                 with ui.row().classes("gap-2"):
                                     start_button = ui.button("Start simulation", icon="play_arrow")
@@ -140,7 +152,7 @@ def serve(local: Path):
                                         with ui.element("div").classes("metric-row"):
                                             ui.label(title).classes("muted")
                                             counter_labels[key] = ui.label("0").classes("value")
-                                ui.label("Loot excludes collections. Preview shows the real screen; counters show simulation results.").classes("muted text-sm")
+                                counters_notice = ui.label("Loot excludes collections. Preview shows the real screen; counters show simulation results.").classes("muted text-sm")
                         with ui.column().classes("panel w-full gap-3"):
                             ui.label("Session journal").classes("heading").props('role="heading" aria-level="2"')
                             journal = ui.label("No activity yet. Start a simulation to see its decisions.").classes("log w-full")
@@ -148,7 +160,7 @@ def serve(local: Path):
                 with ui.tab_panel(settings_tab):
                     with ui.column().classes("panel w-full gap-5"):
                         ui.label("Make the routine yours").classes("heading").props('role="heading" aria-level="2"')
-                        ui.label("These settings affect simulation only. Edits apply on the next start; save a named preset to keep them.").classes("muted")
+                        ui.label("Edits apply on the next start. Live farming requires a validated profile; simulation never sends gameplay input.").classes("muted")
                         with ui.row().classes("w-full items-center gap-3"):
                             preset_select = ui.select(["Default"] + sorted(p.stem for p in presets.glob("*.json")), value="Default", label="Saved preset").props("outlined").classes("w-56")
                             load_button = ui.button("Load preset").props("outline")
@@ -158,6 +170,7 @@ def serve(local: Path):
 
                         @ui.refreshable
                         def form():
+                            ui.input("Live calibration profile").bind_value(draft["live"], "profile").props("outlined").classes("w-full")
                             def number(group, key, label, integer=True, minimum=0):
                                 def change(e):
                                     value = e.value
@@ -175,15 +188,25 @@ def serve(local: Path):
                                     number("farming", key, label)
                                 number("session", "attack_limit", "Attack limit per session", minimum=1)
                                 number("session", "duration_minutes", "Active duration (minutes)", integer=False, minimum=0.01)
-                            ui.label("Troop deployment").classes("text-lg font-semibold mt-5")
-                            ui.label("Steps run in order. Slots are numbered from 1; coordinates are screenshot pixels.").classes("muted text-sm")
+                            ui.label("Ordered deployment").classes("text-lg font-semibold mt-5")
+                            ui.label("Troops, heroes, and spells run in this order. Use all for remaining troops/spells; heroes deploy once with count 1. No manual hero abilities. Slots start at 1; positions are screenshot pixels.").classes("muted text-sm")
 
                             @ui.refreshable
                             def deployment():
                                 for index, step in enumerate(draft["farming"]["deployment"]):
                                     with ui.row().classes("items-center w-full gap-2"):
                                         ui.label(str(index + 1)).classes("font-semibold")
-                                        for key, label in [("slot", "Slot"), ("x", "X"), ("y", "Y"), ("count", "Troops"), ("delay", "Delay / troop (s)")]:
+                                        def kind_changed(e, target=step):
+                                            target["kind"] = e.value
+                                            if e.value == "hero":
+                                                target["count"] = 1
+                                            deployment.refresh()
+                                        ui.select(["troop", "hero", "spell"], value=step.get("kind", "troop"), label="Kind", on_change=kind_changed).props("outlined dense").classes("w-28")
+                                        def count_changed(e, target=step):
+                                            value = e.value.strip()
+                                            target["count"] = int(value) if value.isdigit() else value
+                                        ui.input("Count / all", value=str(step["count"]), on_change=count_changed).props("outlined dense").classes("w-28")
+                                        for key, label in [("slot", "Slot"), ("x", "X"), ("y", "Y"), ("delay", "Delay per unit (s)")]:
                                             def update(e, target=step, field=key):
                                                 value = e.value
                                                 target[field] = int(value) if field != "delay" and value is not None and float(value).is_integer() else value
@@ -194,7 +217,7 @@ def serve(local: Path):
                                         ui.button(icon="delete_outline", on_click=remove).props(f'flat aria-label="Remove deployment step {index + 1}"')
                             deployment()
                             def add_step():
-                                draft["farming"]["deployment"].append(dict(slot=1, x=0, y=0, count=10, delay=0.1))
+                                draft["farming"]["deployment"].append(dict(kind="troop", slot=1, x=0, y=0, count="all", delay=0.1))
                                 deployment.refresh()
                             ui.button("Add deployment step", icon="add", on_click=add_step).props("outline")
                             ui.label("Wall budget").classes("text-lg font-semibold mt-5")
@@ -205,7 +228,7 @@ def serve(local: Path):
                                 number("walls", "reserve_gold", "Keep at least this much gold")
                                 number("walls", "reserve_elixir", "Keep at least this much elixir")
                             with ui.expansion("Calibration & marked locations", icon="crop_free").classes("w-full mt-4"):
-                                ui.label("Stored for future live farming. Changing resolution or moving village objects requires recalibration. Preview does not calibrate automatically.").classes("muted text-sm mb-4")
+                                ui.label("Changing resolution or moving village objects requires recalibration. Use Calibration to mark these points visually.").classes("muted text-sm mb-4")
                                 with ui.element("div").classes("form-grid"):
                                     number("calibration", "width", "Screenshot width (px)", minimum=320)
                                     number("calibration", "height", "Screenshot height (px)", minimum=240)
@@ -222,16 +245,22 @@ def serve(local: Path):
                     with ui.column().classes("panel w-full gap-5"):
                         ui.label("Connect BlueStacks 5").classes("heading").props('role="heading" aria-level="2"')
                         ui.label("Enable Android Debug Bridge in BlueStacks Settings → Advanced. Enter its executable path and the address of the intended instance.").classes("muted")
-                        adb_input = ui.input("ADB executable (full path)", value=draft["device"]["adb_path"], placeholder=r"C:\Program Files\BlueStacks_nxt\HD-Adb.exe").props("outlined").classes("w-full")
+                        adb_input = ui.input("ADB executable (full path)", value=draft["device"]["adb_path"], placeholder=r"C:\Program Files\BlueStacks_polar\HD-Adb.exe").props("outlined").classes("w-full")
                         address_input = ui.input("Local device address", value=draft["device"]["address"]).props("outlined").classes("w-full")
                         with ui.row().classes("gap-3"):
                             connect_button = ui.button("Connect & check screenshot", icon="link")
                             disconnect_button = ui.button("Disconnect").props("outline")
                         connection_message = ui.label("Not connected. Simulation works without an emulator.").classes("muted").props('role="status" aria-live="polite"')
                         ui.link("BlueStacks ADB setup guide", "https://support.bluestacks.com/hc/en-us/articles/23925869130381-How-to-enable-Android-Debug-Bridge-on-BlueStacks-5", new_tab=True)
-                        ui.label("Connection fields are included when you save a preset. Only connection checks and screenshot capture are available.").classes("muted text-sm")
+                        ui.label("Preview is read-only. Only an explicitly started live session sends calibrated gameplay input.").classes("muted text-sm")
 
-            ui.label("Boaz 0.1 · One village. One session. Your settings.").classes("muted text-sm mt-4")
+                with ui.tab_panel(calibration_tab):
+                    def settings_for_calibration():
+                        return get_settings()
+                    calibration_panel(local, device, device_lock, settings_for_calibration, draft,
+                                      lambda: form.refresh(), lambda: runner.active or starting_live)
+
+            ui.label("Boaz 0.2 · One village. One session. Your settings.").classes("muted text-sm mt-4")
 
         def get_settings():
             draft["device"] = dict(adb_path=adb_input.value.strip(), address=address_input.value.strip())
@@ -244,10 +273,49 @@ def serve(local: Path):
             ui.notify("Check your settings in Presets: " + message, type="negative", timeout=8000)
 
         def start():
+            nonlocal runner
             try:
+                if runner.active or starting_live:
+                    raise ValueError("Stop the active session before starting another")
+                runner = simulation
                 runner.start(get_settings())
             except (ValueError, OSError) as exc:
                 report_error(exc)
+
+        async def start_live():
+            nonlocal runner, starting_live
+            if runner.active or starting_live:
+                ui.notify("Stop the active session before starting live farming", type="negative")
+                return
+            starting_live = True
+            live_button.props("loading")
+            try:
+                cfg = get_settings()
+                profile = load_profile(local, cfg.live.profile)
+                recognizer = Recognizer(local, profile, OCR(cfg.live.tesseract_path))
+                await run.io_bound(recognizer.ready, cfg)
+                async with device_lock:
+                    frame = await run.io_bound(device.capture)
+                    recognizer.expect("home", frame)
+                    if not recognizer.matches("home.camera", frame):
+                        raise ValueError("Restore the calibrated home camera before starting")
+                runner = LiveRunner(device, recognizer, device_lock, local / "diagnostics")
+                runner.start(cfg)
+                tabs.set_value(overview)
+            except Exception as exc:
+                report_error(exc)
+            finally:
+                starting_live = False
+                live_button.props(remove="loading")
+
+        def pause_resume():
+            try:
+                runner.resume() if runner.status == "paused" else runner.pause()
+            except Exception as exc:
+                ui.notify(str(exc), type="negative", timeout=10000)
+
+        async def stop_session():
+            await runner.stop()
 
         def load():
             try:
@@ -279,6 +347,8 @@ def serve(local: Path):
             nonlocal preview_source
             connect_button.props("loading")
             try:
+                if runner.active or starting_live:
+                    raise ValueError("Stop the active session before changing its emulator connection")
                 async with device_lock:
                     preview_source = ""
                     await run.io_bound(device.connect, adb_input.value.strip(), address_input.value.strip())
@@ -292,13 +362,17 @@ def serve(local: Path):
 
         async def disconnect():
             nonlocal preview_source
+            if runner.active or starting_live:
+                ui.notify("Stop the active session before disconnecting", type="negative")
+                return
             async with device_lock:
                 await run.io_bound(device.disconnect)
                 preview_source = ""
 
         start_button.on_click(start)
-        pause_button.on_click(lambda: runner.resume() if runner.status == "paused" else runner.pause())
-        stop_button.on_click(runner.stop)
+        live_button.on_click(start_live)
+        pause_button.on_click(pause_resume)
+        stop_button.on_click(stop_session)
         load_button.on_click(load)
         save_button.on_click(save)
         connect_button.on_click(connect)
@@ -311,12 +385,22 @@ def serve(local: Path):
             status_label.set_text(runner.status.capitalize())
             phase_label.set_text(runner.phase)
             reason_label.set_text(runner.reason)
-            start_button.set_enabled(not runner.active)
+            is_live = runner.mode == "Live"
+            mode_badge.set_text("Live · verified gameplay input" if is_live else "Simulation · no gameplay input")
+            session_heading.set_text("Live session" if is_live else "Simulated session")
+            mode_notice.set_text("Live mode sends calibrated inputs to the connected emulator. Counters reflect observed results. Pause or Stop blocks subsequent inputs." if is_live else "Practice mode. Every base, troop, resource, and upgrade below is simulated. No gameplay input is sent.")
+            counters_notice.set_text("Loot is read from battle results. Collections require a verified resource increase and home view." if is_live else "Loot excludes collections. Preview shows the real screen; counters show simulation results.")
+            if is_live:
+                recognition_label.set_text(f"Recognized: {runner.recognizer.screen} · confidence {runner.recognizer.confidence:.3f}")
+            else:
+                recognition_label.set_text("")
+            start_button.set_enabled(not runner.active and not starting_live)
+            live_button.set_enabled(not runner.active and not starting_live and device.connected)
             pause_button.set_enabled(runner.status in {"running", "paused"})
             pause_button.set_text("Resume" if runner.status == "paused" else "Pause")
             stop_button.set_enabled(runner.active)
-            disconnect_button.set_enabled(device.connected and not device_lock.locked())
-            connect_button.set_enabled(not device_lock.locked())
+            disconnect_button.set_enabled(device.connected and not device_lock.locked() and not runner.active and not starting_live)
+            connect_button.set_enabled(not device_lock.locked() and not runner.active and not starting_live)
             counter_labels["elapsed"].set_text(f"{int(runner.elapsed) // 60:02}:{int(runner.elapsed) % 60:02}")
             for key in ("attacks", "searches", "collections", "upgrades"):
                 counter_labels[key].set_text(f"{getattr(runner, key):,}")

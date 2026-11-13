@@ -1,8 +1,8 @@
 # Boaz requirements
 
-## Current delivery: runnable foundation
+## Current delivery: simulation and calibrated live workflows
 
-Windows, Python 3.11, uv, Airtest, NiceGUI, pytest. One process owns one runner and one explicitly selected BlueStacks 5 connection. The server listens on `127.0.0.1:8080`; no separate frontend, database, public application API, or extension system.
+Windows, Python 3.11, uv, Airtest, NiceGUI, pytest, and Tesseract/pytesseract. One process owns one active runner and one explicitly selected BlueStacks 5 connection. The server listens on `127.0.0.1:8080`; no separate frontend, database, public application API, or extension system.
 
 | Capability | Acceptance |
 | --- | --- |
@@ -12,19 +12,20 @@ Windows, Python 3.11, uv, Airtest, NiceGUI, pytest. One process owns one runner 
 | Limits | Nonzero resource minimums all pass; unsuccessful search ends at its cap. Attack and active-duration limits end sessions. Village-only tasks finish once. |
 | Presets | Named JSON with validated types, ranges, task prerequisites, and in-bounds coordinates. Atomic replacement preserves old data if saving fails. Settings changes affect the next run. |
 | Preview | Explicit executable/address; local instance only. Read-only ADB status and capture. Serialized background operations with bounded ADB commands, at most one capture per second. Dimensions and readable failure/reconnect messages. |
-| Dashboard | Session, Presets, and Emulator tabs. Clear empty/disabled/running/paused/stopped/completed/error states, keyboard-operable controls, narrow-screen layout. |
+| Dashboard | Session, Presets, Emulator, and Calibration tabs. Distinct simulation/live starts, clear status, keyboard controls, and narrow-screen layout. |
 | Diagnostics | Bounded in-memory journal, rotating local logs, no stale preview after device loss. Session failures end simulation with a diagnostic reason. |
 
 ### Internal interfaces
 
 - `Settings` and its nested Pydantic models define JSON preset validation. `load_settings`, `save_settings`, and `preset_path` own persistence and safe names.
 - `Runner.start(settings)`, `pause()`, `resume()`, and async `stop()` own the one simulated task. Status, phase, counters, reason, and events feed the UI. No device dependency.
-- `Device.connect(adb_path, address)`, `capture()`, and `disconnect()` are blocking and run through NiceGUI's background I/O utility. An async lock coordinates requests, and an internal thread lock serializes device operations. The adapter exposes no gameplay input functions.
-- Native pixel coordinates are tied to calibration width/height, defaulting to 1280 × 720. English UI and one Home Village account are the future live target.
+- `Device.connect`, `capture`, `disconnect`, `tap`, and `swipe` are bounded blocking operations. Async and thread locks serialize access; a dispatch gate blocks pending taps after Pause/Stop.
+- `LiveRunner` owns calibrated recognition, input, observed counters, and diagnostic pauses. `Recognizer` validates versioned profiles, templates, OCR, and inventory states. The simulator remains independent of the device.
+- Native pixel coordinates are tied to calibration width/height, defaulting to 1280 × 720. English UI and one Home Village account are the live target.
 
-## Follow-on live-farming requirements
+## Live-farming requirements
 
-These are requirements, not implemented features. Collect real screenshots and validate the current game version before implementing any action. Do not ship guessed coordinates or copied historical game templates as working calibration.
+Implemented workflows require real, user-calibrated screenshots. Readiness gates prevent use without required validated regions and OCR. Do not treat synthetic fixtures as proof of real game compatibility; each profile requires supervised checks. Setup steps are in [live-setup.md](live-setup.md).
 
 | Capability | Live behavior |
 | --- | --- |
@@ -32,13 +33,13 @@ These are requirements, not implemented features. Collect real screenshots and v
 | Collection | Verify the home screen and calibrated village layout before visiting marked collector positions. Verify the resulting screen before continuing. |
 | Army readiness | Confirm the configured troop slots and army are ready before entering matchmaking; otherwise pause and explain what is missing. |
 | Base search | Add numeric OCR for gold, elixir, and dark elixir. All enabled minimums must pass; unreadable values never become zero or a successful match. Bound searches. |
-| Deployment | Validate the battle screen, configured slots and deployment points, then execute ordered counts and delays. Recheck state at meaningful transitions. |
+| Deployment | Interleave troops, heroes, and spells with explicit counts or all remaining. Verify available counts and observed changes. Heroes deploy once; no manual ability taps. |
 | Finish and return | Detect actual battle completion, read observed results, return home, and report observed rather than simulated loot. |
 | Walls | Use user-marked targets. Verify the object is a wall, currency, upgrade cost, resource balance, and available upgrade action. Preserve configured reserves and enforce the session cap. Default off. |
 | Failure | Lost connections, unexpected screens, uncertain readings, and timeouts pause live actions. Re-recognize before resuming. Never blindly retry an upgrade when its outcome is uncertain. |
 | Calibration | Store screen dimensions and selected coordinates with the preset; resolution or village-layout changes invalidate calibration. Matching dimensions alone are insufficient. |
 
-Deliver live behavior in three increments: (1) recognition and collection, (2) search/deploy/return, (3) verified wall upgrades. Each increment needs real screen fixtures, bounded failure tests, and a supervised emulator check before being marked available.
+Validate real profiles progressively: recognition and collection, search/deploy/return, then verified wall upgrades. Each requires real screen calibration and a supervised emulator check. Fixed camera and visible, non-scrolling army bars are required.
 
 No gem purchases, unattended recovery from unknown spending outcomes, anti-detection claims, account credentials, remote control, multi-account scheduling, or arbitrary strategy plugins are included.
 
@@ -46,4 +47,4 @@ No gem purchases, unattended recovery from unknown spending outcomes, anti-detec
 
 Automated checks cover configuration round trips and invalid inputs, atomic-save failures, deterministic loot, state transitions, start snapshot isolation, task and session limits, error reporting, wall reserves, explicit device selection, capture failure, serialized capture, and zero simulation device commands.
 
-Browser verification covers session controls, preset load/save, add/remove deployment steps, invalid inputs, connection errors, tab/keyboard operation, and responsive layout. Real BlueStacks preview remains pending until a working instance is available.
+Browser verification covers session controls, presets, deployment editing, frozen calibration, second-capture enforcement, profile persistence, blocked incomplete live starts, and OCR readiness. Real BlueStacks capture and home/camera matching have been verified at 1280 × 720. Full live attack and wall-spending verification remains profile-dependent.

@@ -14,4 +14,6 @@ Mode: Operate. The approved foundation plan controls the scope and navigation. U
 
 Dark green masthead; Session, Presets, Emulator tabs. Session uses a larger preview beside controls and compact metrics, followed by the journal. At 850 px, stack panels; at 520 px, stack settings fields. Presets use grouped forms with advanced calibration folded away. Simulated and observed information are explicitly identified in text.
 
+Calibration extends the existing tabs with frozen screenshots, region bounds, recognition scores, OCR previews, and explicit profile save/test actions. Image selection never sends input. Live start is distinct from simulation and reports missing prerequisites.
+
 Keep visible keyboard focus and text labels on all actions. Errors include a recovery action. Preview never exposes click-to-control; screenshots are content, not decoration. Local state persists only when the user saves a preset.

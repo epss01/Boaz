@@ -1,4 +1,10 @@
 {
+  "live": {
+    "profile": "",
+    "tesseract_path": "C:\\Program Files\\Tesseract-OCR\\tesseract.exe",
+    "transition_timeout": 30.0,
+    "battle_timeout": 300.0
+  },
   "device": {
     "adb_path": "",
     "address": "127.0.0.1:5555"
@@ -20,6 +26,7 @@
       {
         "x": 320,
         "y": 540,
+        "kind": "troop",
         "slot": 1,
         "count": 10,
         "delay": 0.1

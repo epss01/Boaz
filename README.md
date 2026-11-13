@@ -1,8 +1,8 @@
 # Boaz
 
-A local farming assistant foundation for Windows and BlueStacks 5. Named after Boaz, the biblical landowner associated with Ruth's harvest.
+A local farming assistant for Windows and BlueStacks 5. Named after Boaz, the biblical landowner associated with Ruth's harvest.
 
-**This release simulates farming. It does not play Clash of Clans.** The emulator connection only checks device status and captures screenshots. All displayed loot, battles, and upgrades are synthetic.
+**Simulation and live farming are separate actions.** Simulation never sends device input. Live farming sends verified, calibrated inputs only after its readiness checks pass; loot is read from actual battle results. A connected emulator alone is not a complete live configuration.
 
 ## Run
 
@@ -28,7 +28,9 @@ uv sync --frozen
 
 - **Session:** Start simulation, Pause/Resume, and Stop. Observe synthetic activity, loot, counters, and the newest journal entries first.
 - **Presets:** Edit task toggles, loot thresholds, deployment steps, wall reserves, and session limits. Save under a name, then select and Load preset later. Saving the same name replaces that preset atomically. Default is built in and cannot be overwritten.
-- **Emulator:** Enter the full ADB executable path and the intended local instance address. Connect & check screenshot verifies that instance and captures a frame. It never chooses the first available device.
+- **Emulator:** Enter the full ADB executable path and the intended local instance address. Connect & check screenshot verifies that instance and captures a frame. It never chooses the first available device. This machine uses `C:\Program Files\BlueStacks_polar\HD-Adb.exe` and was observed at `127.0.0.1:6610`.
+- **Calibration:** Freeze screenshots, select recognition/OCR rectangles and collector/wall points, test every region against a second capture, then save a named profile and its referencing preset. See [the setup guide](docs/live-setup.md).
+- **Start live farming:** Requires the prepared army, a complete validated profile, matching home camera/resolution, and Tesseract with English data. Deploys ordered troop, hero, and spell steps; heroes deploy once, with no manual ability inputs.
 
 Unsaved form edits are local to that browser page and are lost on refresh. Starting snapshots the current form; later edits never alter the active session. Multiple browser tabs share the same runner and emulator, with their own editable forms. Restarting the server always starts idle.
 
@@ -36,7 +38,7 @@ Unsaved form edits are local to that browser page and are lost on refresh. Start
 
 - Each candidate base `n` offers `100,000 + 50,000n` gold, `80,000 + 40,000n` elixir, and `1,000 + 200n` dark elixir. Candidate numbering restarts for each attack.
 - All nonzero loot minimums must pass. Exhausting the search limit ends the session without attacking. A zero threshold disables that filter.
-- Deployment steps run in order. Slots start at 1; X/Y are screenshot pixels. Per-troop delay affects simulated deployment duration.
+- Deployment steps run in order. Slots start at 1; X/Y are screenshot pixels. Troop/spell counts accept an integer or `all`; hero counts must be 1. Simulation represents `all` as 10 synthetic units. Per-unit delay affects simulated deployment duration.
 - Collections add 25,000 gold and elixir to the synthetic wallet. The loot counters count attacks only.
 - Wallets begin at 1,000,000 gold/elixir and 20,000 dark elixir. Marked walls cost a synthetic 100,000 of the chosen currency each; resource reserves and the session upgrade limit are enforced.
 - Active duration excludes paused time. Attack count and duration end a farming session. With attacks disabled, enabled village tasks run once and finish. A duration limit can interrupt a simulated stage without counting its result.
@@ -52,13 +54,13 @@ Unsaved form edits are local to that browser page and are lost on refresh. Start
 
 Preview is read-only and is not an interactive calibration canvas. Record width, height, and collector/wall coordinate lists in **Presets → Calibration & marked locations**. Resolution or village-layout changes require recalibration before any future live implementation. Matching dimensions alone do not prove calibration is valid.
 
-No real BlueStacks integration test has been completed in this environment; BlueStacks was not available at its standard installation path. Fake-device tests cover capture, explicit selection, failures, and serialization.
+Real screenshot capture was verified at 1280 × 720 using the connected BlueStacks instance. Home/camera recognition was tested on second captures. A supervised collector tap was sent, but collection was not verified after a selection/camera transition. Live collection now requires two-frame wallet readings, an actual resource increase, and the calibrated home view. Full collection, battle, and wall-spending checks require the remaining game-screen calibration; they are not inferred from fake-device tests.
 
 ## Files and development
 
-`src/boaz/` contains the dashboard, configuration, simulator, and read-only device adapter. `config/default.json` documents the built-in defaults; change the corresponding models too if changing defaults. The test suite prevents them drifting.
+`src/boaz/` contains the dashboard, configuration, simulator, live runner, recognition, calibration editor, and bounded device adapter. `config/default.json` documents the built-in defaults; change the corresponding models too if changing defaults. The test suite prevents them drifting. Old preset deployment steps load as troop steps with their original counts; live fields default to an unconfigured profile.
 
-`local/presets/` stores saved JSON, and `local/logs/boaz.log` rotates at 1 MB with three backups. Captures stay in memory and are not saved automatically. Local files, virtual environments, caches, and test artifacts are ignored by Git. There are no credentials, telemetry, or public API endpoints added by Boaz. NiceGUI supplies its normal internal transport routes; the server binds to loopback only.
+`local/presets/` stores saved JSON; `local/profiles/` and `local/templates/` hold calibration. Failed live operations retain at most 20 diagnostic screenshots under `local/diagnostics/`. `local/logs/boaz.log` rotates at 1 MB with three backups. Local files, virtual environments, caches, and test artifacts are ignored by Git. There are no credentials, telemetry, or public API endpoints added by Boaz. NiceGUI supplies its normal internal transport routes; the server binds to loopback only.
 
 ```powershell
 uv run --frozen pytest -q
@@ -70,9 +72,9 @@ See [requirements](docs/requirements.md) for the live-farming roadmap and accept
 
 ## References and limits
 
-- [Airtest](https://github.com/AirtestProject/Airtest): actual dependency for ADB operations and screen-image handling; template recognition is planned.
+- [Airtest](https://github.com/AirtestProject/Airtest): actual dependency for ADB operations, screen images, and template recognition.
 - [NiceGUI](https://nicegui.io/documentation): Python dashboard and background I/O support.
 - [MyBot](https://github.com/MyBotRun/MyBot/blob/master/README.md): Clash workflow reference only. No code or proprietary libraries copied; current game compatibility is unverified.
 - [AzurLaneAutoScript](https://github.com/LmeSzinc/AzurLaneAutoScript/blob/master/README_en.md): task configuration and diagnostic workflow inspiration only.
 
-Live gameplay bots violate [Supercell's Safe and Fair Play Policy](https://supercell.com/en/safe-and-fair-play/) and can result in permanent account bans. This foundation does not make live automation permitted or undetectable. No live farming, OCR, multi-account support, gem spending, or remote access is implemented.
+Live gameplay bots violate [Supercell's Safe and Fair Play Policy](https://supercell.com/en/safe-and-fair-play/) and can result in permanent account bans. No multi-account support, gem spending, army management, tactical targeting, or remote access is implemented. The prepared army and fixed-camera calibration are supplied by the user.

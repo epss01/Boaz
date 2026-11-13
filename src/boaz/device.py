@@ -1,4 +1,4 @@
-"""Read-only ADB connection. No tap, swipe, shell, or input API is exposed."""
+"""Explicit-device, bounded ADB operations. Input requires a fresh matching frame."""
 
 from pathlib import Path
 import re
@@ -89,6 +89,27 @@ class Device:
         self.address = ""
         self.frame = None
         self.dimensions = None
+
+    def _point(self, x, y):
+        if not self.connected or self.dimensions is None:
+            raise RuntimeError("Connect and capture before sending input")
+        if type(x) is not int or type(y) is not int or not (0 <= x < self.dimensions[0] and 0 <= y < self.dimensions[1]):
+            raise ValueError("Input coordinates must be integer pixels inside the captured screen")
+
+    def tap(self, x: int, y: int, *, allowed=None):
+        with self._lock:
+            if allowed is not None and not allowed.is_set():
+                raise InterruptedError("Input cancelled before dispatch")
+            self._point(x, y)
+            self._connection.cmd(["shell", "input", "tap", str(x), str(y)], timeout=8)
+
+    def swipe(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 300):
+        with self._lock:
+            self._point(x1, y1)
+            self._point(x2, y2)
+            if type(duration_ms) is not int or not 50 <= duration_ms <= 2000:
+                raise ValueError("Swipe duration must be 50–2000 ms")
+            self._connection.cmd(["shell", "input", "swipe", str(x1), str(y1), str(x2), str(y2), str(duration_ms)], timeout=8)
 
     def disconnect(self):
         with self._lock:
