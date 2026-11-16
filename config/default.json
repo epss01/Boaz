@@ -16,32 +16,41 @@
     "walls": []
   },
   "farming": {
-    "collect": true,
+    "prepare_army": false,
+    "composition": [],
+    "collect": false,
     "attack": true,
+    "dump_all": true,
+    "auto_corner": true,
+    "army": null,
     "min_gold": 200000,
     "min_elixir": 150000,
     "min_dark_elixir": 0,
     "search_limit": 10,
     "deployment": [
       {
-        "x": 320,
-        "y": 540,
+        "x": 100,
+        "y": 400,
         "kind": "troop",
         "slot": 1,
-        "count": 10,
-        "delay": 0.1
+        "count": "all",
+        "delay": 0.5
       }
     ]
   },
   "walls": {
+    "until_max": false,
+    "player_tag": "",
+    "spend_limit": null,
     "enabled": false,
+    "build_menu": false,
     "currency": "gold",
     "reserve_gold": 500000,
     "reserve_elixir": 500000,
     "upgrade_limit": 5
   },
   "session": {
-    "attack_limit": 5,
+    "attack_limit": 1,
     "duration_minutes": 15.0
   }
 }

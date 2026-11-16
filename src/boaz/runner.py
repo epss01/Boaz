@@ -50,6 +50,8 @@ class Runner:
         log.info(message)
 
     def start(self, settings: Settings):
+        if self.mode == 'Simulation' and settings.walls.until_max:
+            raise ValueError('Wall completion requires a live village export; choose a bounded simulation')
         if self.active:
             raise ValueError("A session is already running; stop it before starting another")
         self.settings = Settings.model_validate(settings.model_dump())

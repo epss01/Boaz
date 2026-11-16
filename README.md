@@ -2,9 +2,17 @@
 
 A local farming assistant for Windows and BlueStacks 5. Named after Boaz, the biblical landowner associated with Ruth's harvest.
 
+The **Farming** screen checks and remembers your account, calculates an army from its actual camp capacity and unlocks, and shows the recommendation with real unit artwork. **Start farming & upgrade walls** verifies/prepares that army, farms and upgrades affordable walls while keeping at least 500,000 gold and elixir. Launch reconnects your remembered emulator and stays idle until Start.
+
+The normal Start button has passed a bounded farming-and-wall run on the calibrated account: full planned consumption, stable loot, one level-12→13 wall upgrade for 750,000 elixir, fresh export confirmation and return Home. English 1280×720 recognition assets cover 35 Valkyries, five Rage, one Freeze and Stone Slammer; Warden deploys once, while identified unsupported Queen/King states are skipped. Other recommended compositions or appearances require calibration in **Advanced**. Entire-account wall completion has been fixture-tested rather than run live. Presets, simulation, emulator setup, calibration and bounded session controls remain in Advanced. See [live setup](docs/live-setup.md) and the [current handoff](docs/auto-farming-handoff.md) for exact verification status and compatibility limits.
+
 **Simulation and live farming are separate actions.** Simulation never sends device input. Live farming sends verified, calibrated inputs only after its readiness checks pass; loot is read from actual battle results. A connected emulator alone is not a complete live configuration.
 
+Latest verification: **202 automated tests pass**. A subsequent farm-only attack consumed the planned army, but intermittent ADB timeouts and a newly observed, uncalibrated **Claim Reward** result button prevented verified return Home. The current build should not be treated as fully unattended-ready; see the handoff before live use.
+
 ## Run
+
+On Windows, double-click **Start Boaz.cmd** in this folder. It starts Boaz and opens the dashboard in your default browser. If Boaz is already running, it opens that dashboard instead. Keep the launcher window open while using Boaz; close it or press Ctrl+C to stop a server it started. You can create a desktop shortcut to this file.
 
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/) if needed, then open PowerShell in this folder:
 
@@ -28,6 +36,8 @@ uv sync --frozen
 
 - **Session:** Start simulation, Pause/Resume, and Stop. Observe synthetic activity, loot, counters, and the newest journal entries first.
 - **Presets:** Edit task toggles, loot thresholds, deployment steps, wall reserves, and session limits. Save under a name, then select and Load preset later. Saving the same name replaces that preset atomically. Default is built in and cannot be overwritten.
+- Choose **Auto farm** or **Auto farm + wall upgrades**. Town Hall templates cover a shared TH1–7 starter and TH8–18, with Valkyries or Valkyries plus wall breakers from TH8. Editable slot suggestions initialize new calibration profiles; actual counts and availability still require calibrated screenshots. Town Hall selection preserves your connection, calibration, filters, mode, and session limits.
+- **Default** starts idle with collection/walls off, dump mode and automatic corner enabled, a 0.5-second tap interval, and a one-attack/fifteen-minute cap. Live troops/spells deploy in timed bursts with stack checks before and after; switching stacks adds verification time. Existing saved intervals are preserved; the local `my-farm` preset uses 0.5 seconds.
 - **Emulator:** Enter the full ADB executable path and the intended local instance address. Connect & check screenshot verifies that instance and captures a frame. It never chooses the first available device. This machine uses `C:\Program Files\BlueStacks_polar\HD-Adb.exe` and was observed at `127.0.0.1:6610`.
 - **Calibration:** Freeze screenshots, select recognition/OCR rectangles and collector/wall points, test every region against a second capture, then save a named profile and its referencing preset. See [the setup guide](docs/live-setup.md).
 - **Start live farming:** Requires the prepared army, a complete validated profile, matching home camera/resolution, and Tesseract with English data. Deploys ordered troop, hero, and spell steps; heroes deploy once, with no manual ability inputs.

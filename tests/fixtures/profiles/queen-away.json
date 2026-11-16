@@ -1,0 +1,622 @@
+{
+  "version": 1,
+  "width": 1280,
+  "height": 720,
+  "assets": {
+    "base": {
+      "rect": {
+        "x": 570,
+        "y": 17,
+        "width": 144,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "7344c44719cd6cc4ddd0a984872db6a92145f75b03f3b705318ff96223c5d5ee.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.479880+00:00",
+      "variants": []
+    },
+    "battle": {
+      "rect": {
+        "x": 580,
+        "y": 17,
+        "width": 124,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "a5a4a12c8c61ff3d61230845c64161d12bc6033ad814ae7d178c91d0fdc63de2.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.538363+00:00",
+      "variants": []
+    },
+    "base.troop.1.area": {
+      "rect": {
+        "x": 90,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "cc9de91e6ef65edb6da0e65b64ee85c34df94b5206ac2ddd61f7f9c7ba3566a6.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.433245+00:00",
+      "variants": []
+    },
+    "base.troop.1.ready": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "416d6e5bdf27ddc7b5275af4280f056d6ce3b5f21076496bfddec5d66b74a6fb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.433882+00:00",
+      "variants": []
+    },
+    "base.troop.1.count": {
+      "rect": {
+        "x": 121,
+        "y": 591,
+        "width": 60,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "3c096a7eaade6adac864a24e7a9f07455c6572479ebb5a381463193bdb3286d9.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:57:14.489173+00:00",
+      "variants": []
+    },
+    "base.troop.2.area": {
+      "rect": {
+        "x": 204,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "fd7d5408aae083a25283832731655ebb4fcd0e7b723da9638eb38c65e8d0a49a.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.437361+00:00",
+      "variants": []
+    },
+    "base.troop.2.ready": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "632c22ec68b26a13bab78454214ad9c7e693983f3a495f8a4a27a20bb350afef.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.439867+00:00",
+      "variants": []
+    },
+    "base.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "bd90de77b1af6b2d97ea64f2cd652b8296f602bf8929da72b5867117d9ec5acf.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.443920+00:00",
+      "variants": []
+    },
+    "base.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "6e79c52f753f87fce9c869e28e9978f81a2f10457e6cf9d5f3e39c8d36837691.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.446425+00:00",
+      "variants": []
+    },
+    "base.spell.1.area": {
+      "rect": {
+        "x": 413,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "e433b18df83bf614a49014ed0bbfd94c01a4c34c4faad2b99a2efda318d8e50e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.448996+00:00",
+      "variants": []
+    },
+    "base.spell.1.ready": {
+      "rect": {
+        "x": 426,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0fc216198f0f8a4a738e52d036a29581be5c43e45115dd7585884581b0375d56.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.449988+00:00",
+      "variants": []
+    },
+    "base.spell.1.count": {
+      "rect": {
+        "x": 444,
+        "y": 592,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "0c37d60f095432d4468b762ebe2e787f27c4537ee1d439f420e36b321e4bea68.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:00:38.432202+00:00",
+      "variants": []
+    },
+    "base.spell.2.area": {
+      "rect": {
+        "x": 510,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "1b803885416446c4b38799e441864083b020d003ef7419ac58295154afe7b65b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.453997+00:00",
+      "variants": []
+    },
+    "base.spell.2.ready": {
+      "rect": {
+        "x": 523,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "3a4364e1637bf07c64770d9d35cb888559fa42425a3bd3ce465de8f5c1e46723.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.454519+00:00",
+      "variants": []
+    },
+    "base.spell.2.count": {
+      "rect": {
+        "x": 541,
+        "y": 592,
+        "width": 56,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "1cf1840982b1315d96f61347f816a6d26be610d10dbdfbde0007bd386a657173.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:34:23.375353+00:00",
+      "variants": []
+    },
+    "base.roster": {
+      "rect": {
+        "x": 88,
+        "y": 584,
+        "width": 1160,
+        "height": 136
+      },
+      "kind": "template",
+      "image": "002e2c42319bb46224ba9de3a1255e79d082b736e079ea9b7f04286c91cdc9d5.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.477322+00:00",
+      "variants": []
+    },
+    "battle.troop.1.area": {
+      "rect": {
+        "x": 90,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "314bc896d9456d3232843f7d49ce875555a7ca800682907f4404a647e619d77f.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.482394+00:00",
+      "variants": []
+    },
+    "battle.troop.1.ready": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "416d6e5bdf27ddc7b5275af4280f056d6ce3b5f21076496bfddec5d66b74a6fb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.483919+00:00",
+      "variants": []
+    },
+    "battle.troop.1.count": {
+      "rect": {
+        "x": 121,
+        "y": 591,
+        "width": 58,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "2ff86a9e00ea76bf45c0ccd468c86f75d355ca954b450842542a1efa945805cb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:34:34.677246+00:00",
+      "variants": []
+    },
+    "battle.troop.2.area": {
+      "rect": {
+        "x": 204,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "b7d2b7ec42e089a4942261d24ce29809b48a0207e2a0aa5c8d789c38705c92ba.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.487412+00:00",
+      "variants": []
+    },
+    "battle.troop.2.ready": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "632c22ec68b26a13bab78454214ad9c7e693983f3a495f8a4a27a20bb350afef.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.489915+00:00",
+      "variants": []
+    },
+    "battle.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "5bb599a569fff863320678b661d1126bbe2423e4c75b1e511c37692200e8c5fe.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.493434+00:00",
+      "variants": []
+    },
+    "battle.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "6cea33b2a1614c8c3dee4369dd08b90fe1a5659d53ca10aef2f91202041ed424.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.495591+00:00",
+      "variants": []
+    },
+    "battle.spell.1.area": {
+      "rect": {
+        "x": 413,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "3feaed572f3bbc49ef09dc021face200d3df5eda7e0dcd3b6873b2d22de5474c.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.497220+00:00",
+      "variants": []
+    },
+    "battle.spell.1.ready": {
+      "rect": {
+        "x": 426,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0fc216198f0f8a4a738e52d036a29581be5c43e45115dd7585884581b0375d56.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.498485+00:00",
+      "variants": []
+    },
+    "battle.spell.1.count": {
+      "rect": {
+        "x": 444,
+        "y": 592,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "0c37d60f095432d4468b762ebe2e787f27c4537ee1d439f420e36b321e4bea68.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:00:38.552656+00:00",
+      "variants": []
+    },
+    "battle.spell.2.area": {
+      "rect": {
+        "x": 510,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "623327b3eaa3e49c49879a6701db309c186ed11a684a1a3329eecc7c4e2c8f8b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.501966+00:00",
+      "variants": []
+    },
+    "battle.spell.2.ready": {
+      "rect": {
+        "x": 523,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "3a4364e1637bf07c64770d9d35cb888559fa42425a3bd3ce465de8f5c1e46723.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.504515+00:00",
+      "variants": []
+    },
+    "battle.spell.2.count": {
+      "rect": {
+        "x": 541,
+        "y": 592,
+        "width": 58,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "5071d96cf71e2052dd2d9c71188be7940f643989b1786a8306ef8c9d5d3d50ff.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:46:04.643924+00:00",
+      "variants": []
+    },
+    "battle.troop.1.depleted": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4a654931eb64acb77d127a67faf2b7860042619993b845c9c44f3879ccd68f84.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.508577+00:00",
+      "variants": []
+    },
+    "battle.troop.2.depleted": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "cd1dc4d52ef6bec63abfcf95ba0f7e329978de355a231ccb9f10c0071ba57a74.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.509570+00:00",
+      "variants": []
+    },
+    "battle.hero.1.deployed": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "8934368c077b8bacaa3b3fa1b4565cab3e85dcfee91e6e867ba61b7a91bab9cd.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.511080+00:00",
+      "variants": [
+        "9dc5c6c3a733c46345512aa45b58411a1f4b51cd4809a00b5f3250bddd3e31c0.png"
+      ]
+    },
+    "battle.spell.1.depleted": {
+      "rect": {
+        "x": 426,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0164d41d6b138ce598a6022c19fc3ff8e4cb4fea7afc9007ed15ac32c12f4d8f.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.513649+00:00",
+      "variants": []
+    },
+    "battle.spell.2.depleted": {
+      "rect": {
+        "x": 523,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "13f38b920e74f5552ba04dd3ba2bd82d3c095b6def456a5d7340b22da6482814.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.515271+00:00",
+      "variants": []
+    },
+    "battle.roster": {
+      "rect": {
+        "x": 88,
+        "y": 584,
+        "width": 1160,
+        "height": 136
+      },
+      "kind": "template",
+      "image": "1292c3e27224553756352027e391c6430bbef28e1ea17faf8e6d87415eb3a7ae.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.535810+00:00",
+      "variants": []
+    },
+    "base.gold": {
+      "rect": {
+        "x": 64,
+        "y": 90,
+        "width": 140,
+        "height": 25
+      },
+      "kind": "number",
+      "image": "68b0d4d251d987fc1f8a876f948ee00e2ce4738eb1427cfb97eca27a3749162e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.538892+00:00",
+      "variants": []
+    },
+    "base.elixir": {
+      "rect": {
+        "x": 64,
+        "y": 132,
+        "width": 140,
+        "height": 21
+      },
+      "kind": "number",
+      "image": "808cdff9e4aa2df6085fc9594e128c9c581c70f835ff677bc6dd60fd94350653.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:13:50.905028+00:00",
+      "variants": []
+    },
+    "base.dark_elixir": {
+      "rect": {
+        "x": 64,
+        "y": 169,
+        "width": 100,
+        "height": 17
+      },
+      "kind": "number",
+      "image": "f8dc59484843bbbf7c7b436b62e89523865c077b42be79971e1567b0ea9d051e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.544417+00:00",
+      "variants": []
+    },
+    "base.next": {
+      "rect": {
+        "x": 1145,
+        "y": 479,
+        "width": 99,
+        "height": 35
+      },
+      "kind": "template",
+      "image": "f500081727b7566243e864125b910aa12959a41fd35e4d4a9b91d518a2b6d286.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.545968+00:00",
+      "variants": []
+    },
+    "base.home": {
+      "rect": {
+        "x": 27,
+        "y": 525,
+        "width": 128,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "90c9e95ac0cebadb4f5b214f1589d56c0fec32079fa35467105286bdb6448aaa.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.548554+00:00",
+      "variants": []
+    },
+    "battle.troop.2.deployed": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "08bbb564e37772571c38c0eb1bc7b69921005f560ba3d14c298ffe96168caa24.png",
+      "threshold": 0.85,
+      "validated": true,
+      "captured_at": "2026-11-14T05:35:55.694366+00:00",
+      "variants": []
+    }
+  },
+  "slots": [
+    {
+      "kind": "troop",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "troop",
+      "slot": 2,
+      "single": true
+    },
+    {
+      "kind": "hero",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "spell",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "spell",
+      "slot": 2,
+      "single": false
+    }
+  ],
+  "inventory_profiles": [],
+  "result_layouts": {
+    "three": [
+      "gold",
+      "elixir",
+      "dark_elixir"
+    ],
+    "two": [
+      "gold",
+      "elixir"
+    ]
+  }
+}

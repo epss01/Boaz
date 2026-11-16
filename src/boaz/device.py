@@ -3,6 +3,7 @@
 from pathlib import Path
 import re
 from threading import Lock
+import time
 
 
 def make_adb(adb_path: str, address: str):
@@ -17,6 +18,10 @@ def make_adb(adb_path: str, address: str):
         def connect(self, force=False):
             # The upstream connect probes get_status() without a timeout.
             return self.cmd(["connect", self.serialno], device=False)
+
+        def push(self, local, remote):
+            # Upstream treats the extensionless minitouch binary as a directory.
+            return self.cmd(['push',str(local),remote])
 
     return BoundedADB(serialno=address, adb_path=adb_path)
 
@@ -62,8 +67,12 @@ class Device:
     def _screenshot(connection):
         from airtest.aircv.utils import string_2_img
 
-        png = connection.cmd(["exec-out", "screencap", "-p"], ensure_unicode=False, timeout=8)
-        return string_2_img(png)
+        for _ in range(3):
+            png = connection.cmd(["exec-out", "screencap", "-p"], ensure_unicode=False, timeout=8)
+            frame = string_2_img(png)
+            if frame is not None and frame.size and frame.any():
+                return frame
+        raise RuntimeError("Emulator returned only black frames; restore the game window and reconnect")
 
     def _accept_frame(self, frame) -> None:
         if frame is None or getattr(frame, "size", 0) == 0 or len(frame.shape) != 3:
@@ -103,8 +112,10 @@ class Device:
             self._point(x, y)
             self._connection.cmd(["shell", "input", "tap", str(x), str(y)], timeout=8)
 
-    def swipe(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 300):
+    def swipe(self, x1: int, y1: int, x2: int, y2: int, duration_ms: int = 300, *, allowed=None):
         with self._lock:
+            if allowed is not None and not allowed.is_set():
+                raise InterruptedError("Camera input cancelled before dispatch")
             self._point(x1, y1)
             self._point(x2, y2)
             if type(duration_ms) is not int or not 50 <= duration_ms <= 2000:
@@ -115,3 +126,37 @@ class Device:
         with self._lock:
             self._clear()
             self.error = ""
+
+    def zoom_out(self, *, allowed=None):
+        from airtest.core.android.touch_methods.minitouch import Minitouch
+        with self._lock:
+            if allowed is not None and not allowed.is_set():
+                raise InterruptedError('Camera normalization cancelled')
+            self._point(640,320)
+            if self.dimensions != (1280,720):
+                raise ValueError('Camera normalization supports English 1280×720 only')
+            touch=Minitouch(self._connection,size_info={'width':1280,'height':720})
+            send=None
+            try:
+                touch.install_and_setup()
+                send=touch.handle
+                def guarded(command):
+                    if allowed is not None and not allowed.is_set():
+                        raise InterruptedError('Camera normalization cancelled')
+                    send(command)
+                def contacts(verb,points):
+                    commands=[]
+                    for contact,(x,y) in enumerate(points):
+                        nx,ny=touch.transform_xy(x,y)
+                        commands.append(f'{verb} {contact} {nx} {ny} {touch.default_pressure}')
+                    guarded('\n'.join(commands)+'\nc\n')
+                # Commit both contacts together so a pinch cannot become a pan.
+                contacts('d',[(256,104),(1024,536)])
+                for step in range(1,6):
+                    time.sleep(.1)
+                    contacts('m',[(256+(620-256)*step/5,104+(310-104)*step/5),
+                                  (1024+(660-1024)*step/5,536+(330-536)*step/5)])
+            finally:
+                if send is not None:
+                    send('u 0\nu 1\nc\n')
+                touch.teardown()

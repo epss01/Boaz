@@ -27,7 +27,7 @@ class FakeADB:
         self.max_active = max(self.active, self.max_active)
         time.sleep(0.005)
         from airtest.aircv.utils import img_2_string
-        result = img_2_string(np.zeros((720, 1280, 3), dtype=np.uint8))
+        result = img_2_string(np.full((720, 1280, 3), 64, dtype=np.uint8))
         self.active -= 1
         return result
 
@@ -94,6 +94,33 @@ def test_capture_failure_clears_stale_frame(connected):
     assert device.dimensions is None
 
 
+def test_camera_swipe_honors_stop_before_dispatch(connected):
+    import threading
+    device, fake = connected
+    before = list(fake.calls)
+    with pytest.raises(InterruptedError):
+        device.swipe(400,300,800,300,400,allowed=threading.Event())
+    assert fake.calls == before
+
+
+def test_transient_black_capture_is_retried_without_input(connected, monkeypatch):
+    device, fake = connected
+    original = fake.cmd
+    from airtest.aircv.utils import img_2_string
+    black = img_2_string(np.zeros((720, 1280, 3), dtype=np.uint8))
+    calls = []
+    def capture(args, **kwargs):
+        calls.append(args)
+        return black if len(calls) == 1 else original(args, **kwargs)
+    monkeypatch.setattr(fake, 'cmd', capture)
+    assert device.capture().any()
+    assert calls == [['exec-out', 'screencap', '-p']] * 2
+    monkeypatch.setattr(fake, 'cmd', lambda *args, **kwargs: black)
+    with pytest.raises(RuntimeError, match='black frames'):
+        device.capture()
+    assert not device.connected
+
+
 def test_captures_are_serialized(connected):
     device, fake = connected
     with ThreadPoolExecutor(max_workers=3) as pool:
@@ -118,6 +145,8 @@ def test_airtest_constructor_and_commands_are_bounded(tmp_path, monkeypatch):
         (["connect", "127.0.0.1:5555"], {"device": False, "timeout": 8}),
         (["get-state"], {"timeout": 8}),
     ]
+    adb.push('helper-without-extension','/data/local/tmp/helper-without-extension')
+    assert calls[-1] == (['push','helper-without-extension','/data/local/tmp/helper-without-extension'],{'timeout':8})
 
 
 def test_input_bounds_and_cancellation(connected, monkeypatch):
@@ -140,3 +169,28 @@ def test_input_bounds_and_cancellation(connected, monkeypatch):
     device.swipe(0, 0, 100, 200)
     assert calls == [(["shell", "input", "tap", "10", "20"], {"timeout": 8}),
                      (["shell", "input", "swipe", "0", "0", "100", "200", "300"], {"timeout": 8})]
+
+
+def test_zoom_commits_both_contacts_and_releases_on_cancel(connected,monkeypatch):
+    import threading
+    import airtest.core.android.touch_methods.minitouch as mt
+    device,_=connected
+    allowed=threading.Event()
+    allowed.set()
+    commands=[]
+    class Touch:
+        default_pressure=50
+        def __init__(self,*args,**kwargs):
+            self.handle=commands.append
+        def install_and_setup(self):
+            pass
+        def transform_xy(self,x,y):
+            return str(round(x)),str(round(y))
+        def teardown(self):
+            commands.append('closed')
+    monkeypatch.setattr(mt,'Minitouch',Touch)
+    monkeypatch.setattr(module.time,'sleep',lambda _:allowed.clear())
+    with pytest.raises(InterruptedError):
+        device.zoom_out(allowed=allowed)
+    assert commands[0].count('d ') == 2 and commands[0].endswith('c\n')
+    assert commands[1:] == ['u 0\nu 1\nc\n','closed']

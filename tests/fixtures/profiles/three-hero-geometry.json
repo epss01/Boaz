@@ -1,0 +1,1304 @@
+{
+  "version": 1,
+  "width": 1280,
+  "height": 720,
+  "assets": {
+    "home": {
+      "rect": {
+        "x": 42,
+        "y": 672,
+        "width": 91,
+        "height": 29
+      },
+      "kind": "template",
+      "image": "d5e5688849eee615c66af6d7145aca1dbc1c804fe91725d32edb5f17a7d0de01.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:49:25.781125+00:00"
+    },
+    "home.camera": {
+      "rect": {
+        "x": 145,
+        "y": 163,
+        "width": 28,
+        "height": 28
+      },
+      "kind": "template",
+      "image": "bb8e5f61bc71e150652a1fca79e32d5b9c75ed0146801a6bdc172f3cc03dc920.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:50:13.619073+00:00"
+    },
+    "home.attack": {
+      "rect": {
+        "x": 29,
+        "y": 674,
+        "width": 100,
+        "height": 28
+      },
+      "kind": "template",
+      "image": "f1260dafc0f4d54e44434a8c5458eaa49218abb9a800d3b97ae03ad8a07ed0fc.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-15T10:47:05.741439+00:00"
+    },
+    "matchmaking": {
+      "rect": {
+        "x": 98,
+        "y": 42,
+        "width": 149,
+        "height": 33
+      },
+      "kind": "template",
+      "image": "c9a9f4b09bc534e2b8631e24360ef1631f05c1fabeb0d887a7867451f074aaed.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:37:33.294552+00:00"
+    },
+    "matchmaking.find": {
+      "rect": {
+        "x": 78,
+        "y": 493,
+        "width": 282,
+        "height": 80
+      },
+      "kind": "template",
+      "image": "0ab4ef80d69213085cbab163ba0413f2c0ba77d8b29f5d9aa7203a30abc7d802.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:13:13.392456+00:00"
+    },
+    "army": {
+      "rect": {
+        "x": 205,
+        "y": 60,
+        "width": 112,
+        "height": 24
+      },
+      "kind": "template",
+      "image": "4bbf47ec7e54258cc69446e670b8e61873dcc978253033b6a74d76b184d408e5.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T12:05:13.323295+00:00"
+    },
+    "army.close": {
+      "rect": {
+        "x": 1218,
+        "y": 47,
+        "width": 37,
+        "height": 36
+      },
+      "kind": "template",
+      "image": "67aa5b84db45b8daba71380c9e15f31047d78079fa12660a1a74d39c24289c0b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:14:07.126305+00:00"
+    },
+    "wall": {
+      "rect": {
+        "x": 520,
+        "y": 468,
+        "width": 73,
+        "height": 26
+      },
+      "kind": "template",
+      "image": "311b9374d272aec5f8b58abff0fb811bd0b26ee88265d4708d50afb393b4fbc8.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:52:14.579926+00:00"
+    },
+    "wall.close": {
+      "rect": {
+        "x": 1040,
+        "y": 310,
+        "width": 25,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "771e808d8d2a5f1c6a649a609a6e50ea36adbb2de9fccad0d8d5ef306531abeb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.800412+00:00"
+    },
+    "wall.upgrade_gold": {
+      "rect": {
+        "x": 661,
+        "y": 585,
+        "width": 95,
+        "height": 24
+      },
+      "kind": "template",
+      "image": "a8a7fb8efaf7a199e0acba6fcaed827e3237587d3b7da911ee03de6176603662.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:25:08.640319+00:00"
+    },
+    "wall.currency_gold": {
+      "rect": {
+        "x": 752,
+        "y": 510,
+        "width": 14,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "ee169be15cf31b323e8a241f70951d5b692c8e3e372358fab69638e5369515aa.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:25:08.636249+00:00"
+    },
+    "confirm": {
+      "rect": {
+        "x": 420,
+        "y": 35,
+        "width": 281,
+        "height": 33
+      },
+      "kind": "template",
+      "image": "0095f3024422028147d80b08362490d8c4e71a0a42ff469937875b1cb6529adc.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:53:51.702276+00:00"
+    },
+    "confirm.cancel": {
+      "rect": {
+        "x": 1109,
+        "y": 36,
+        "width": 45,
+        "height": 42
+      },
+      "kind": "template",
+      "image": "79ae0d86306db2619cbdf76b863b915e1b0e110f2661d82e04f62a9ebfa6ddca.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:53:51.705774+00:00"
+    },
+    "confirm.accept": {
+      "rect": {
+        "x": 820,
+        "y": 591,
+        "width": 146,
+        "height": 49
+      },
+      "kind": "template",
+      "image": "a6abf8768b192ac7aa7b279221387ac75218e3ba36f88ca871735bad5995fc7e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:53:51.709824+00:00"
+    },
+    "confirm.currency_gold": {
+      "rect": {
+        "x": 958,
+        "y": 620,
+        "width": 35,
+        "height": 38
+      },
+      "kind": "template",
+      "image": "1c82e795fbcf291fdeb9a88255e715f5b1c298bde6b5311dd0dbe999f9dcb7f4.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:53:51.712447+00:00"
+    },
+    "home.wallet_gold": {
+      "rect": {
+        "x": 1000,
+        "y": 27,
+        "width": 218,
+        "height": 20
+      },
+      "kind": "number",
+      "image": "55e99f06df1b94afdb96d54f6125ed2f25686f3a164cabe93a87686b2f90b600.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:49:25.795121+00:00"
+    },
+    "home.wallet_elixir": {
+      "rect": {
+        "x": 1000,
+        "y": 77,
+        "width": 218,
+        "height": 20
+      },
+      "kind": "number",
+      "image": "e536cb3420784bf0150d7556befe988c616dc1f2d2a925154e41cab755f17def.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:49:25.797651+00:00"
+    },
+    "home.wallet_dark_elixir": {
+      "rect": {
+        "x": 1065,
+        "y": 127,
+        "width": 153,
+        "height": 20
+      },
+      "kind": "number",
+      "image": "4a171165065ce99fae6bebc6ce36c78e338b705a9bd636cb08762cc7fb8e92c8.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:49:25.802699+00:00"
+    },
+    "matchmaking.regular": {
+      "rect": {
+        "x": 150,
+        "y": 438,
+        "width": 133,
+        "height": 43
+      },
+      "kind": "template",
+      "image": "ab37ecdab3cef0e33053e437bbcfacf83ede3e7772088d21d70c32765e2bc950.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:37:33.298112+00:00"
+    },
+    "matchmaking.find_regular": {
+      "rect": {
+        "x": 78,
+        "y": 493,
+        "width": 282,
+        "height": 80
+      },
+      "kind": "template",
+      "image": "0ab4ef80d69213085cbab163ba0413f2c0ba77d8b29f5d9aa7203a30abc7d802.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:37:33.302632+00:00"
+    },
+    "matchmaking.army": {
+      "rect": {
+        "x": 65,
+        "y": 665,
+        "width": 174,
+        "height": 41
+      },
+      "kind": "template",
+      "image": "cd5566ab15c9a735faf8381bb3057449e43e45e3ea16f697c1b15555872beab7.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:37:33.306708+00:00"
+    },
+    "base": {
+      "rect": {
+        "x": 570,
+        "y": 17,
+        "width": 144,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "7344c44719cd6cc4ddd0a984872db6a92145f75b03f3b705318ff96223c5d5ee.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.479880+00:00"
+    },
+    "battle": {
+      "rect": {
+        "x": 580,
+        "y": 17,
+        "width": 124,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "a5a4a12c8c61ff3d61230845c64161d12bc6033ad814ae7d178c91d0fdc63de2.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.538363+00:00"
+    },
+    "results": {
+      "rect": {
+        "x": 598,
+        "y": 596,
+        "width": 87,
+        "height": 43
+      },
+      "kind": "template",
+      "image": "1ff17886e6c595991b4bdec3a89daa891b93ea4176915290f9277c980e013097.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:14.064321+00:00"
+    },
+    "results.home": {
+      "rect": {
+        "x": 564,
+        "y": 589,
+        "width": 154,
+        "height": 60
+      },
+      "kind": "template",
+      "image": "81bf39958922f79ae4a91950ee0a7aac44d2d2c3703715038709f077c10d0189.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.987623+00:00"
+    },
+    "results.gold": {
+      "rect": {
+        "x": 567,
+        "y": 319,
+        "width": 100,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "61b5dacf0eda7c0a7291df9f7790f18214fe3aa018e0697b65bc21e6f1756c08.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.987623+00:00"
+    },
+    "results.elixir": {
+      "rect": {
+        "x": 563,
+        "y": 367,
+        "width": 104,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "184772b9c3785ea35f3eb455975cb04e096a47c2bae1b935ecf67e1177808e90.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.990697+00:00"
+    },
+    "results.dark_elixir": {
+      "rect": {
+        "x": 608,
+        "y": 415,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "a38af56fe297267d8a99566be4351025db8dba3bb85fd3ee6bcde27490c29b1d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.991738+00:00"
+    },
+    "wall.name": {
+      "rect": {
+        "x": 518,
+        "y": 465,
+        "width": 79,
+        "height": 31
+      },
+      "kind": "text",
+      "image": "02da0be0c4b188e78509b3c05da7876f6f5fa7736660bae19f126ea2c297fd4a.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:52:14.586009+00:00"
+    },
+    "wall.level": {
+      "rect": {
+        "x": 720,
+        "y": 465,
+        "width": 31,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "09dc2a3d3b889167dc349d2d9b6ff1846286da2c66aa0af55ab2ce655c7431bf.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:23:40.480740+00:00"
+    },
+    "wall.wallet_gold": {
+      "rect": {
+        "x": 1000,
+        "y": 27,
+        "width": 218,
+        "height": 20
+      },
+      "kind": "number",
+      "image": "9a0bdb6da1c8830560f0eb9ecb6278b64e6cd0d96210ed3844e72d51330e3578.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:52:14.593608+00:00"
+    },
+    "confirm.cost": {
+      "rect": {
+        "x": 822,
+        "y": 613,
+        "width": 112,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "8634269a00dfc82bbf649ec8138261f9c2af28896fdaf23f22425271b4323b70.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:53:51.716047+00:00"
+    },
+    "army.ready": {
+      "rect": {
+        "x": 580,
+        "y": 160,
+        "width": 86,
+        "height": 20
+      },
+      "kind": "template",
+      "image": "c3e4af8822c6d58d29ac39e2ceb766620da47abc931fb44c92b1b9e7d4620d21.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T12:05:13.327300+00:00"
+    },
+    "army.attack": {
+      "rect": {
+        "x": 1018,
+        "y": 624,
+        "width": 223,
+        "height": 36
+      },
+      "kind": "template",
+      "image": "020207f0b627a09811761eef12c2b36c749d8b5616abd09cf3a8b447cd972e99.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T12:05:13.332973+00:00"
+    },
+    "home.build": {
+      "rect": {
+        "x": 1137,
+        "y": 584,
+        "width": 116,
+        "height": 113
+      },
+      "kind": "template",
+      "image": "7748cf265265f2c5824afc5c4983c5da96475b4fafab3f25bdec2d058ff5fe60.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.540600+00:00"
+    },
+    "build": {
+      "rect": {
+        "x": 1027,
+        "y": 12,
+        "width": 196,
+        "height": 22
+      },
+      "kind": "template",
+      "image": "1e96555cf71c1b3175dea12352f61b85197a630a7444f265056643728d130f22.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.593738+00:00"
+    },
+    "build.wall": {
+      "rect": {
+        "x": 994,
+        "y": 413,
+        "width": 84,
+        "height": 22
+      },
+      "kind": "template",
+      "image": "1d9776a808aa44189410b6983265346c035e1cec3e853da73cb2011fb3039630.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.646574+00:00"
+    },
+    "build_wall": {
+      "rect": {
+        "x": 345,
+        "y": 399,
+        "width": 243,
+        "height": 37
+      },
+      "kind": "template",
+      "image": "02e13be4bd8568d874a6df3d609d870b3d5347c510d5e099d99450e8c99c70c8.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.695744+00:00"
+    },
+    "build_wall.close": {
+      "rect": {
+        "x": 1245,
+        "y": 10,
+        "width": 27,
+        "height": 28
+      },
+      "kind": "template",
+      "image": "c1a61e6f7599c62289e90f61f6aa893432380b0af6328e40301d32b364f715d5.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:19:50.744098+00:00"
+    },
+    "base.roster": {
+      "rect": {
+        "x": 88,
+        "y": 584,
+        "width": 1160,
+        "height": 136
+      },
+      "kind": "template",
+      "image": "e33c23262d8060587b1d584488ece238662f4f128a4ead65950f546636cb00cd.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-15T10:50:52.989721+00:00"
+    },
+    "battle.roster": {
+      "rect": {
+        "x": 88,
+        "y": 584,
+        "width": 1160,
+        "height": 136
+      },
+      "kind": "template",
+      "image": "e33c23262d8060587b1d584488ece238662f4f128a4ead65950f546636cb00cd.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-15T10:50:53.052903+00:00"
+    },
+    "base.gold": {
+      "rect": {
+        "x": 64,
+        "y": 90,
+        "width": 140,
+        "height": 25
+      },
+      "kind": "number",
+      "image": "68b0d4d251d987fc1f8a876f948ee00e2ce4738eb1427cfb97eca27a3749162e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.538892+00:00"
+    },
+    "base.elixir": {
+      "rect": {
+        "x": 64,
+        "y": 132,
+        "width": 140,
+        "height": 21
+      },
+      "kind": "number",
+      "image": "808cdff9e4aa2df6085fc9594e128c9c581c70f835ff677bc6dd60fd94350653.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:13:50.905028+00:00"
+    },
+    "base.dark_elixir": {
+      "rect": {
+        "x": 64,
+        "y": 169,
+        "width": 100,
+        "height": 17
+      },
+      "kind": "number",
+      "image": "f8dc59484843bbbf7c7b436b62e89523865c077b42be79971e1567b0ea9d051e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.544417+00:00"
+    },
+    "base.next": {
+      "rect": {
+        "x": 1145,
+        "y": 479,
+        "width": 99,
+        "height": 35
+      },
+      "kind": "template",
+      "image": "f500081727b7566243e864125b910aa12959a41fd35e4d4a9b91d518a2b6d286.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.545968+00:00"
+    },
+    "base.home": {
+      "rect": {
+        "x": 27,
+        "y": 525,
+        "width": 128,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "90c9e95ac0cebadb4f5b214f1589d56c0fec32079fa35467105286bdb6448aaa.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.548554+00:00"
+    },
+    "results.three.anchor": {
+      "rect": {
+        "x": 613,
+        "y": 291,
+        "width": 60,
+        "height": 15
+      },
+      "kind": "template",
+      "image": "c07ee4cbb4360e1cdee0d24cd1c2b875c5844a45bbaf65c621caf7dd433d0a27.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:13.929312+00:00"
+    },
+    "results.three.gold": {
+      "rect": {
+        "x": 440,
+        "y": 319,
+        "width": 228,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "f3541d9172678705ac1c5370b58af698947c965d9c46a4f136feb6f93099a683.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:28:19.331682+00:00"
+    },
+    "results.three.elixir": {
+      "rect": {
+        "x": 440,
+        "y": 367,
+        "width": 228,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "28f443b2e9e16d1d6757c36c9bd8ef0467213673c524cddbf30d2e96e93d5d75.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:28:19.334835+00:00"
+    },
+    "results.three.dark_elixir": {
+      "rect": {
+        "x": 440,
+        "y": 415,
+        "width": 228,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "7a8a8155e3ef82f9c4176804fd2c15720aa5987ee179b55844a123ac8536a08c.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:28:19.338376+00:00"
+    },
+    "results.two.anchor": {
+      "rect": {
+        "x": 613,
+        "y": 307,
+        "width": 60,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "48468c7f392e3712398fa1321ee3782a4d709ae7ba0bfaa2f41a14b842522771.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:22:12.708934+00:00"
+    },
+    "results.two.gold": {
+      "rect": {
+        "x": 440,
+        "y": 342,
+        "width": 228,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "58345dbe5be0a18fc964453d72d8fb763bbc5c94b729cf915ef4b68184f9523b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:28:19.562638+00:00"
+    },
+    "results.two.elixir": {
+      "rect": {
+        "x": 440,
+        "y": 394,
+        "width": 228,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "fc03e04c516ccdab9d7a89089d410e594e913855711a7e53e5b2ddd6a7f3f067.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:28:19.564745+00:00"
+    },
+    "bonus": {
+      "rect": {
+        "x": 420,
+        "y": 59,
+        "width": 449,
+        "height": 38
+      },
+      "kind": "template",
+      "image": "6ea4129093aa62b889a2d89d2ce2131a35cae186d642612e47e74b96cc54ae59.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:32:16.674534+00:00"
+    },
+    "bonus.close": {
+      "rect": {
+        "x": 557,
+        "y": 580,
+        "width": 176,
+        "height": 64
+      },
+      "kind": "template",
+      "image": "27ed2626504ab6392f39db0bd4023f16b3b271c84e1c446a4ceee3a4c02ba38b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:32:16.678268+00:00"
+    },
+    "base.troop.1.area": {
+      "rect": {
+        "x": 90,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "cc9de91e6ef65edb6da0e65b64ee85c34df94b5206ac2ddd61f7f9c7ba3566a6.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.433245+00:00"
+    },
+    "base.troop.1.ready": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "416d6e5bdf27ddc7b5275af4280f056d6ce3b5f21076496bfddec5d66b74a6fb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.433882+00:00"
+    },
+    "base.troop.1.count": {
+      "rect": {
+        "x": 121,
+        "y": 591,
+        "width": 60,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "3c096a7eaade6adac864a24e7a9f07455c6572479ebb5a381463193bdb3286d9.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T04:57:14.489173+00:00"
+    },
+    "battle.troop.1.area": {
+      "rect": {
+        "x": 90,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "314bc896d9456d3232843f7d49ce875555a7ca800682907f4404a647e619d77f.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.482394+00:00"
+    },
+    "battle.troop.1.ready": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "416d6e5bdf27ddc7b5275af4280f056d6ce3b5f21076496bfddec5d66b74a6fb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.483919+00:00"
+    },
+    "battle.troop.1.count": {
+      "rect": {
+        "x": 121,
+        "y": 591,
+        "width": 58,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "2ff86a9e00ea76bf45c0ccd468c86f75d355ca954b450842542a1efa945805cb.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:34:34.677246+00:00"
+    },
+    "battle.troop.1.depleted": {
+      "rect": {
+        "x": 103,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4a654931eb64acb77d127a67faf2b7860042619993b845c9c44f3879ccd68f84.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.508577+00:00"
+    },
+    "base.troop.2.area": {
+      "rect": {
+        "x": 204,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "fd7d5408aae083a25283832731655ebb4fcd0e7b723da9638eb38c65e8d0a49a.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.437361+00:00"
+    },
+    "base.troop.2.ready": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "632c22ec68b26a13bab78454214ad9c7e693983f3a495f8a4a27a20bb350afef.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.439867+00:00"
+    },
+    "battle.troop.2.area": {
+      "rect": {
+        "x": 204,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "b7d2b7ec42e089a4942261d24ce29809b48a0207e2a0aa5c8d789c38705c92ba.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.487412+00:00"
+    },
+    "battle.troop.2.ready": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "632c22ec68b26a13bab78454214ad9c7e693983f3a495f8a4a27a20bb350afef.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.489915+00:00"
+    },
+    "battle.troop.2.depleted": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "cd1dc4d52ef6bec63abfcf95ba0f7e329978de355a231ccb9f10c0071ba57a74.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.509570+00:00"
+    },
+    "battle.troop.2.deployed": {
+      "rect": {
+        "x": 251,
+        "y": 678,
+        "width": 30,
+        "height": 25
+      },
+      "kind": "template",
+      "image": "08bbb564e37772571c38c0eb1bc7b69921005f560ba3d14c298ffe96168caa24.png",
+      "threshold": 0.85,
+      "validated": true,
+      "captured_at": "2026-11-14T05:35:55.694366+00:00"
+    },
+    "base.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "bd90de77b1af6b2d97ea64f2cd652b8296f602bf8929da72b5867117d9ec5acf.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.443920+00:00"
+    },
+    "base.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "6e79c52f753f87fce9c869e28e9978f81a2f10457e6cf9d5f3e39c8d36837691.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.446425+00:00"
+    },
+    "battle.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "5bb599a569fff863320678b661d1126bbe2423e4c75b1e511c37692200e8c5fe.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.493434+00:00"
+    },
+    "battle.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "6cea33b2a1614c8c3dee4369dd08b90fe1a5659d53ca10aef2f91202041ed424.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.495591+00:00"
+    },
+    "battle.hero.1.deployed": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "8934368c077b8bacaa3b3fa1b4565cab3e85dcfee91e6e867ba61b7a91bab9cd.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.511080+00:00"
+    },
+    "base.hero.2.area": {
+      "rect": {
+        "x": 402,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "9fc336d2cde414def50623751995254b99503219fe7d3deec573999397477354.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T12:05:03.439485+00:00"
+    },
+    "base.hero.2.ready": {
+      "rect": {
+        "x": 415,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "d75bf07eceb02547841b914152c91f8be340344d48222a293da4c759ff15d389.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:41:36.006940+00:00"
+    },
+    "battle.hero.2.area": {
+      "rect": {
+        "x": 402,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "762c26182be7ef68fc88345d5f89351693f46898ad23ce4d3dec9ec537e0f713.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T12:05:03.568522+00:00"
+    },
+    "battle.hero.2.ready": {
+      "rect": {
+        "x": 415,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "c279d16f51a143598cbd860936e2be7d8d3b444ecb78279c0b288677f3f44e5b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:41:36.173866+00:00"
+    },
+    "battle.hero.2.deployed": {
+      "rect": {
+        "x": 415,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "57963b7b1911d0dca24648cb8a2790121a783b6d6ee135b1dfe2edbcbb3cdf59.png",
+      "threshold": 0.9,
+      "validated": false,
+      "captured_at": "2026-11-13T12:05:03.678201+00:00"
+    },
+    "base.hero.3.area": {
+      "rect": {
+        "x": 498,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "48e323da553b1e457c56399b914a08baccced91d51a0b172ba54cd278b6e679d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.712088+00:00"
+    },
+    "base.hero.3.ready": {
+      "rect": {
+        "x": 511,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4afd7f0e2ee1172edd04b3cdffeaec9e485d42e5d379e321bb69c48cbdf52334.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.717125+00:00"
+    },
+    "battle.hero.3.area": {
+      "rect": {
+        "x": 498,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "48e323da553b1e457c56399b914a08baccced91d51a0b172ba54cd278b6e679d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.721213+00:00"
+    },
+    "battle.hero.3.ready": {
+      "rect": {
+        "x": 511,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4afd7f0e2ee1172edd04b3cdffeaec9e485d42e5d379e321bb69c48cbdf52334.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.725247+00:00"
+    },
+    "base.spell.1.area": {
+      "rect": {
+        "x": 606,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "e433b18df83bf614a49014ed0bbfd94c01a4c34c4faad2b99a2efda318d8e50e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.448996+00:00"
+    },
+    "base.spell.1.ready": {
+      "rect": {
+        "x": 619,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0fc216198f0f8a4a738e52d036a29581be5c43e45115dd7585884581b0375d56.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.449988+00:00"
+    },
+    "base.spell.1.count": {
+      "rect": {
+        "x": 637,
+        "y": 592,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "0c37d60f095432d4468b762ebe2e787f27c4537ee1d439f420e36b321e4bea68.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:00:38.432202+00:00"
+    },
+    "battle.spell.1.area": {
+      "rect": {
+        "x": 606,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "3feaed572f3bbc49ef09dc021face200d3df5eda7e0dcd3b6873b2d22de5474c.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.497220+00:00"
+    },
+    "battle.spell.1.ready": {
+      "rect": {
+        "x": 619,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0fc216198f0f8a4a738e52d036a29581be5c43e45115dd7585884581b0375d56.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.498485+00:00"
+    },
+    "battle.spell.1.count": {
+      "rect": {
+        "x": 637,
+        "y": 592,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "0c37d60f095432d4468b762ebe2e787f27c4537ee1d439f420e36b321e4bea68.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:00:38.552656+00:00"
+    },
+    "battle.spell.1.depleted": {
+      "rect": {
+        "x": 619,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "0164d41d6b138ce598a6022c19fc3ff8e4cb4fea7afc9007ed15ac32c12f4d8f.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.513649+00:00"
+    },
+    "base.spell.2.area": {
+      "rect": {
+        "x": 703,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "1b803885416446c4b38799e441864083b020d003ef7419ac58295154afe7b65b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.453997+00:00"
+    },
+    "base.spell.2.ready": {
+      "rect": {
+        "x": 716,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "3a4364e1637bf07c64770d9d35cb888559fa42425a3bd3ce465de8f5c1e46723.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.454519+00:00"
+    },
+    "base.spell.2.count": {
+      "rect": {
+        "x": 734,
+        "y": 592,
+        "width": 56,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "1cf1840982b1315d96f61347f816a6d26be610d10dbdfbde0007bd386a657173.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T06:34:23.375353+00:00"
+    },
+    "battle.spell.2.area": {
+      "rect": {
+        "x": 703,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "623327b3eaa3e49c49879a6701db309c186ed11a684a1a3329eecc7c4e2c8f8b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.501966+00:00"
+    },
+    "battle.spell.2.ready": {
+      "rect": {
+        "x": 716,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "3a4364e1637bf07c64770d9d35cb888559fa42425a3bd3ce465de8f5c1e46723.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.504515+00:00"
+    },
+    "battle.spell.2.count": {
+      "rect": {
+        "x": 734,
+        "y": 592,
+        "width": 58,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "5071d96cf71e2052dd2d9c71188be7940f643989b1786a8306ef8c9d5d3d50ff.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:46:04.643924+00:00"
+    },
+    "battle.spell.2.depleted": {
+      "rect": {
+        "x": 716,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "13f38b920e74f5552ba04dd3ba2bd82d3c095b6def456a5d7340b22da6482814.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T23:51:10.515271+00:00"
+    }
+  },
+  "slots": [
+    {
+      "kind": "troop",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "troop",
+      "slot": 2,
+      "single": true
+    },
+    {
+      "kind": "hero",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "hero",
+      "slot": 2,
+      "single": false
+    },
+    {
+      "kind": "hero",
+      "slot": 3,
+      "single": false
+    },
+    {
+      "kind": "spell",
+      "slot": 1,
+      "single": false
+    },
+    {
+      "kind": "spell",
+      "slot": 2,
+      "single": false
+    }
+  ],
+  "inventory_profiles": [],
+  "result_layouts": {
+    "three": [
+      "gold",
+      "elixir",
+      "dark_elixir"
+    ],
+    "two": [
+      "gold",
+      "elixir"
+    ]
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "version": 1,
+  "width": 1280,
+  "height": 720,
+  "assets": {
+    "results": {
+      "rect": {
+        "x": 598,
+        "y": 596,
+        "width": 87,
+        "height": 43
+      },
+      "kind": "template",
+      "image": "1ff17886e6c595991b4bdec3a89daa891b93ea4176915290f9277c980e013097.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:14.064321+00:00"
+    },
+    "results.home": {
+      "rect": {
+        "x": 564,
+        "y": 589,
+        "width": 154,
+        "height": 60
+      },
+      "kind": "template",
+      "image": "81bf39958922f79ae4a91950ee0a7aac44d2d2c3703715038709f077c10d0189.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.987623+00:00"
+    },
+    "results.gold": {
+      "rect": {
+        "x": 567,
+        "y": 319,
+        "width": 100,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "61b5dacf0eda7c0a7291df9f7790f18214fe3aa018e0697b65bc21e6f1756c08.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.987623+00:00"
+    },
+    "results.elixir": {
+      "rect": {
+        "x": 563,
+        "y": 367,
+        "width": 104,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "184772b9c3785ea35f3eb455975cb04e096a47c2bae1b935ecf67e1177808e90.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.990697+00:00"
+    },
+    "results.dark_elixir": {
+      "rect": {
+        "x": 608,
+        "y": 415,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "a38af56fe297267d8a99566be4351025db8dba3bb85fd3ee6bcde27490c29b1d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-13T11:47:56.991738+00:00"
+    },
+    "results.three.anchor": {
+      "rect": {
+        "x": 613,
+        "y": 291,
+        "width": 60,
+        "height": 15
+      },
+      "kind": "template",
+      "image": "c07ee4cbb4360e1cdee0d24cd1c2b875c5844a45bbaf65c621caf7dd433d0a27.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:13.929312+00:00"
+    },
+    "results.three.gold": {
+      "rect": {
+        "x": 567,
+        "y": 319,
+        "width": 100,
+        "height": 27
+      },
+      "kind": "number",
+      "image": "61b5dacf0eda7c0a7291df9f7790f18214fe3aa018e0697b65bc21e6f1756c08.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:13.931828+00:00"
+    },
+    "results.three.elixir": {
+      "rect": {
+        "x": 563,
+        "y": 367,
+        "width": 104,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "184772b9c3785ea35f3eb455975cb04e096a47c2bae1b935ecf67e1177808e90.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:13.934349+00:00"
+    },
+    "results.three.dark_elixir": {
+      "rect": {
+        "x": 608,
+        "y": 415,
+        "width": 60,
+        "height": 26
+      },
+      "kind": "number",
+      "image": "a38af56fe297267d8a99566be4351025db8dba3bb85fd3ee6bcde27490c29b1d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:13.936885+00:00"
+    },
+    "results.two.anchor": {
+      "rect": {
+        "x": 613,
+        "y": 307,
+        "width": 60,
+        "height": 16
+      },
+      "kind": "template",
+      "image": "0f91a0b706184f32d042763661275e5f1a5f584985b64b3b68e5f9f644c2080c.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:14.001072+00:00"
+    },
+    "results.two.gold": {
+      "rect": {
+        "x": 558,
+        "y": 342,
+        "width": 110,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "09b52073cf33214c9fc8790c30b50ce53d8fb4e55f404c08a97278105caf6c0b.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:14.004206+00:00"
+    },
+    "results.two.elixir": {
+      "rect": {
+        "x": 554,
+        "y": 394,
+        "width": 114,
+        "height": 28
+      },
+      "kind": "number",
+      "image": "8512904dae52ab412eba736327fe8443a8faabe46806830f10ab1bbadea0db1e.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T00:13:14.006278+00:00"
+    }
+  },
+  "slots": [],
+  "inventory_profiles": [],
+  "result_layouts": {
+    "three": [
+      "gold",
+      "elixir",
+      "dark_elixir"
+    ],
+    "two": [
+      "gold",
+      "elixir"
+    ]
+  }
+}

@@ -43,7 +43,7 @@ class DeploymentStep(Point):
     kind: Literal["troop", "hero", "spell"] = "troop"
     slot: int = Field(default=1, ge=1, le=20)
     count: int | Literal["all"] = 10
-    delay: float = Field(default=0.1, ge=0, le=30)
+    delay: float = Field(default=0.5, ge=0, le=30)
 
     @model_validator(mode="after")
     def check_count(self):
@@ -61,20 +61,50 @@ class LiveSettings(Model):
     battle_timeout: float = Field(default=300.0, ge=30, le=600)
 
 
+class ArmySuggestions(Model):
+    town_hall: int = Field(ge=7, le=18)  # 7 represents the shared TH1–7 starter.
+    wall_breakers: bool = False
+    troops: int = Field(default=1, ge=1, le=19)
+    heroes: int = Field(default=1, ge=0, le=4)
+    spells: int = Field(default=1, ge=0, le=20)
+    siege: int = Field(default=0, ge=0, le=1)
+
+
+def town_hall_army(level: int, wall_breakers: bool = False) -> ArmySuggestions:
+    return ArmySuggestions(town_hall=level, wall_breakers=wall_breakers if level >= 8 else False,
+                           troops=2 if level >= 8 and wall_breakers else 1,
+                           heroes=1 + int(level >= 9) + int(level >= 11) + int(level >= 13),
+                           spells=2 if level >= 9 else 1, siege=int(level >= 10))
+
+
+class ArmyUnit(Model):
+    name: Literal['Valkyrie', 'Wall Breaker', 'Giant', 'Archer', 'Rage', 'Freeze', 'Lightning', 'Stone Slammer', 'Wall Wrecker']
+    count: int = Field(ge=1, le=500)
+
+
 class Farming(Model):
-    collect: bool = True
+    prepare_army: bool = False
+    composition: list[ArmyUnit] = Field(default_factory=list, max_length=9)
+    collect: bool = False
     attack: bool = True
+    dump_all: bool = True
+    auto_corner: bool = True
+    army: ArmySuggestions | None = None
     min_gold: int = Field(default=200000, ge=0, le=100000000)
     min_elixir: int = Field(default=150000, ge=0, le=100000000)
     min_dark_elixir: int = Field(default=0, ge=0, le=10000000)
     search_limit: int = Field(default=10, ge=1, le=1000)
     deployment: list[DeploymentStep] = Field(
-        default_factory=lambda: [DeploymentStep(x=320, y=540)], max_length=50
+        default_factory=lambda: [DeploymentStep(x=100, y=400, count="all")], max_length=50
     )
 
 
 class WallSettings(Model):
+    until_max: bool = False
+    player_tag: str = ""
+    spend_limit: int | None = Field(default=None, ge=0)
     enabled: bool = False
+    build_menu: bool = False
     currency: str = Field(default="gold", pattern=r"^(gold|elixir)$")
     reserve_gold: int = Field(default=500000, ge=0, le=100000000)
     reserve_elixir: int = Field(default=500000, ge=0, le=100000000)
@@ -82,7 +112,7 @@ class WallSettings(Model):
 
 
 class SessionSettings(Model):
-    attack_limit: int = Field(default=5, ge=1, le=1000)
+    attack_limit: int = Field(default=1, ge=1, le=1000)
     duration_minutes: float = Field(default=15.0, gt=0, le=1440)
 
 
@@ -96,14 +126,23 @@ class Settings(Model):
 
     @model_validator(mode="after")
     def check_tasks(self):
+        if self.farming.prepare_army and (not self.farming.army or not self.farming.composition
+                or len({u.name for u in self.farming.composition}) != len(self.farming.composition)
+                or not re.fullmatch(r'#[0289PYLQGRJCUV]+',self.walls.player_tag)):
+            raise ValueError('Automatic army preparation requires a checked account, Town Hall and unique composition')
+        if self.walls.until_max and not (self.farming.attack and self.walls.enabled and self.walls.build_menu
+                                        and re.fullmatch(r'#[0289PYLQGRJCUV]+', self.walls.player_tag)):
+            raise ValueError("Continuous farming requires attacks, Build-menu walls and the current player tag")
         if not (self.farming.collect or self.farming.attack or self.walls.enabled):
             raise ValueError("Enable at least one farming task")
         if self.farming.attack and not self.farming.deployment:
             raise ValueError("Attacks require at least one deployment step")
+        if self.farming.auto_corner and not self.farming.dump_all:
+            raise ValueError("Automatic corner placement requires dump mode")
         for step in self.farming.deployment:
             if step.x >= self.calibration.width or step.y >= self.calibration.height:
                 raise ValueError("Deployment points must be inside the recorded resolution")
-        if self.walls.enabled and not self.calibration.walls:
+        if self.walls.enabled and not self.walls.build_menu and not self.calibration.walls:
             raise ValueError("Mark at least one wall before enabling wall upgrades")
         return self
 

@@ -1,0 +1,68 @@
+{
+  "version": 1,
+  "width": 1280,
+  "height": 720,
+  "assets": {
+    "base.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "48e323da553b1e457c56399b914a08baccced91d51a0b172ba54cd278b6e679d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.712088+00:00"
+    },
+    "base.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4afd7f0e2ee1172edd04b3cdffeaec9e485d42e5d379e321bb69c48cbdf52334.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.717125+00:00"
+    },
+    "battle.hero.1.area": {
+      "rect": {
+        "x": 305,
+        "y": 584,
+        "width": 98,
+        "height": 132
+      },
+      "kind": "template",
+      "image": "48e323da553b1e457c56399b914a08baccced91d51a0b172ba54cd278b6e679d.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.721213+00:00"
+    },
+    "battle.hero.1.ready": {
+      "rect": {
+        "x": 318,
+        "y": 629,
+        "width": 66,
+        "height": 47
+      },
+      "kind": "template",
+      "image": "4afd7f0e2ee1172edd04b3cdffeaec9e485d42e5d379e321bb69c48cbdf52334.png",
+      "threshold": 0.9,
+      "validated": true,
+      "captured_at": "2026-11-14T11:28:32.725247+00:00"
+    }
+  },
+  "slots": [
+    {
+      "kind": "hero",
+      "slot": 1,
+      "single": false
+    }
+  ],
+  "inventory_profiles": [],
+  "result_layouts": {}
+}

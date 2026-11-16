@@ -8,7 +8,7 @@ import cv2
 from nicegui import run, ui
 
 from .recognition import (OCR, Profile, Rect, Recognizer, Slot, load_profile,
-                          record_asset, requirements, save_profile)
+                          record_asset, requirements, save_profile, initial_slots)
 
 
 def image_source(frame):
@@ -53,7 +53,7 @@ def calibration_panel(root, device, device_lock, get_settings, draft, changed, b
             if profile is None:
                 cfg = get_settings()
                 profile = Profile(width=frozen.shape[1], height=frozen.shape[0],
-                                  slots=[Slot(kind=k, slot=s) for k, s in sorted({(a.kind, a.slot) for a in cfg.farming.deployment})])
+                                  slots=initial_slots(cfg),prepared_army=cfg.farming.composition if cfg.farming.prepare_army else [])
             if (profile.width, profile.height) != (frozen.shape[1], frozen.shape[0]):
                 raise ValueError("Resolution changed. Create a new profile before capturing regions.")
             image.set_source(image_source(frozen))
@@ -128,7 +128,7 @@ def calibration_panel(root, device, device_lock, get_settings, draft, changed, b
                 raise ValueError("Record this region first")
             if frozen_at <= asset.captured_at:
                 raise ValueError("Freeze a second screenshot after recording the region; do not test the original capture")
-            recognizer = Recognizer(root, profile, OCR(ocr_path.value.strip()))
+            recognizer = Recognizer(root, profile, OCR(ocr_path.value.strip(), root / "numeric-font"))
             result = await run.io_bound(recognizer.validate_asset, key, frozen)
             crop.set_source(image_source(asset.rect.crop(frozen)))
             refresh_options()
@@ -222,7 +222,9 @@ def calibration_panel(root, device, device_lock, get_settings, draft, changed, b
         with ui.expansion("Region guide and slot inventory", icon="help_outline").classes("w-full"):
             ui.label("Screen names (home, army, etc.) need distinctive screen-only anchors. home.camera must include fixed village scenery. Button regions must contain only their clickable target; their centers are tapped. OCR count crops must exclude the × icon; resource crops must contain the full integer. wall.name must read Wall (optionally with its level), wall.level only the level number. Currency anchors must identify gold/elixir, never gems.").classes("muted")
             ui.label("For each slot, .area covers the entire slot including its border, counts, and health bar. State templates use identical, smaller portrait regions, excluding the selection border. Roster guards cover the ENTIRE visible inventory strip including empty space; they mask the calibrated .area rectangles and detect changes outside them. Keep all slots visible; scrolling army bars are unsupported.").classes("muted")
-            slot_summary = ui.label("Slots are initialized from the deployment preset").classes("muted")
+            ui.label("For an implicit-count siege slot, set single to true in the inventory JSON. Its deployed template must identify the release marker, using the same bounds as its ready template. Once consumption is verified, later card changes are not read again.").classes("muted")
+            ui.label("Use regular Multiplayer Battle only: matchmaking.regular marks the regular Battle card, matchmaking.find_regular its Find a Match button, and matchmaking.army the Edit Army button. Never calibrate Ranked Battle controls. Dump mode still requires every visible army slot and a legal corner point in the first deployment step.").classes("muted")
+            slot_summary = ui.label("New profiles use army suggestions, or deployment slots when no Town Hall is selected. Include every visible slot; adjust for unavailable heroes before calibration.").classes("muted")
             slots_json = ui.textarea("Complete slot inventory (JSON)", value='[{"kind":"troop","slot":1}]').props("outlined").classes("w-full")
             ui.button("Apply slot inventory", on_click=update_slots).props("outline")
         with ui.row().classes("items-center gap-3"):
